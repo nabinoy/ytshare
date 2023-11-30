@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:ytshare/screens/settings.dart';
+import 'package:ytshare/services/shared_service.dart';
 import 'package:ytshare/theme/theme_provider.dart';
 
 class Home extends StatefulWidget {
@@ -14,12 +16,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   bool isDarkMode = false;
 
@@ -55,7 +51,10 @@ class _HomeState extends State<Home> {
           GestureDetector(
             onTap: () {
               HapticFeedback.mediumImpact();
-              //Navigator.pushNamed(context, ChatBot.routeName);
+              Navigator.pushNamed(
+                context,
+                Settings.routeName,
+              );
             },
             child: Icon(MdiIcons.cogOutline),
           ),
@@ -84,6 +83,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           toggleTheme();
+          SharedService.setThemeOrder(_counter);
           Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
         },
         tooltip: 'Increment',

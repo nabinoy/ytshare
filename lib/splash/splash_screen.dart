@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:ytshare/screens/homepage.dart';
+import 'package:ytshare/services/shared_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    //SharedService.shareInit();
+    SharedService.shareInit();
   }
 
   @override
