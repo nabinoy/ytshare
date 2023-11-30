@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:ytshare/theme/theme_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,6 +21,24 @@ class _HomeState extends State<Home> {
     });
   }
 
+  bool isDarkMode = false;
+
+  void toggleTheme() {
+    setState(() {
+      isDarkMode = !isDarkMode;
+      updateSystemNavigationBar();
+    });
+  }
+
+  void updateSystemNavigationBar() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          isDarkMode ? Colors.grey.shade900 : Colors.grey.shade400,
+      systemNavigationBarIconBrightness:
+          isDarkMode ? Brightness.light : Brightness.dark,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +49,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         title: Text(
           Global.appName,
-          style: const TextStyle(
-              fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         actions: [
           GestureDetector(
@@ -63,7 +82,10 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          toggleTheme();
+          Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
