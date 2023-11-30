@@ -22,8 +22,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         centerTitle: true,
         elevation: 0,
         title: Text(
@@ -42,7 +43,7 @@ class _HomeState extends State<Home> {
           const Padding(padding: EdgeInsets.all(8))
         ],
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: Column(
           children: [],
         ),
