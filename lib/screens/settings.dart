@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:ytshare/services/shared_service.dart';
+import 'package:ytshare/theme/theme_provider.dart';
 
 class Settings extends StatefulWidget {
   static const String routeName = '/settings';
@@ -11,6 +14,21 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   int selectedValue = 1;
+
+  void darkTheme(bool data) {
+    setState(() {
+      updateSystemNavigationBar(data);
+    });
+  }
+
+  void updateSystemNavigationBar(bool data) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor:
+          data ? Colors.grey.shade900 : Colors.grey.shade400,
+      systemNavigationBarIconBrightness:
+          data ? Brightness.light : Brightness.dark,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +94,10 @@ class _SettingsState extends State<Settings> {
                           onChanged: (value) {
                             setState(() {
                               selectedValue = value!;
+                              darkTheme(false);
+                              SharedService.setThemeOrder(selectedValue);
+                              Provider.of<ThemeProvider>(context, listen: false)
+                                  .darkTheme(false);
                             });
                           },
                         ),
@@ -90,6 +112,10 @@ class _SettingsState extends State<Settings> {
                           onChanged: (value) {
                             setState(() {
                               selectedValue = value!;
+                              darkTheme(true);
+                              SharedService.setThemeOrder(selectedValue);
+                              Provider.of<ThemeProvider>(context, listen: false)
+                                  .darkTheme(true);
                             });
                           },
                         ),

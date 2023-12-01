@@ -24,14 +24,12 @@ class YTShare extends StatefulWidget {
 }
 
 class _YTShareState extends State<YTShare> {
-
   int themeOrder = 0;
 
   @override
   void initState() {
     super.initState();
     futureCall();
-    
   }
 
   Future<void> futureCall() async {
@@ -40,13 +38,16 @@ class _YTShareState extends State<YTShare> {
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       title: Global.appName,
       debugShowCheckedModeBanner: false,
-      theme: (themeOrder==1)? lightMode: Provider.of<ThemeProvider>(context).themeData,
+      theme: (themeOrder == 1)
+          ? lightMode
+          : Provider.of<ThemeProvider>(context).themeData,
       // theme: lightMode,
-      darkTheme: (themeOrder==1)?darkMode:Provider.of<ThemeProvider>(context).themeData,
+      darkTheme: (themeOrder == 1)
+          ? darkMode
+          : Provider.of<ThemeProvider>(context).themeData,
       // theme: ThemeData(
       //   fontFamily: Global.fontRegular,
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
