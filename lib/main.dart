@@ -37,16 +37,6 @@ class _YTShareState extends State<YTShare> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            systemNavigationBarColor:
-                (MediaQuery.of(context).platformBrightness == Brightness.light)
-                    ? Colors.grey.shade900
-                    : Colors.grey.shade400,
-            systemNavigationBarIconBrightness:
-                (MediaQuery.of(context).platformBrightness == Brightness.light)
-                    ? Brightness.light
-                    : Brightness.dark,
-          ));
     return FutureBuilder(future: (() async {
       return await futureCall();
     })(), builder: (context, snapshot) {

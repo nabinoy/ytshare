@@ -110,7 +110,16 @@ class _SettingsState extends State<Settings> {
                                     });
                                   },
                                 ),
-                                const Text('System default'),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text('System default'),
+                                    const SizedBox(width: 6,),
+                                    Icon(MdiIcons.alertCircleOutline,size: 10,color: Colors.red,),
+                                    const SizedBox(width: 2,),
+                                    const Text('Any changes requires restart',style: TextStyle(fontSize: 10,color: Colors.red,),),
+                                  ],
+                                ),
                               ],
                             ),
                             Row(
@@ -159,9 +168,61 @@ class _SettingsState extends State<Settings> {
                         ),
                       );
                     } else {
-                      return const Center(
-                        child: CircularProgressIndicator(color: Colors.white),
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Theme',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 1,
+                                  groupValue: 4,
+                                  onChanged: (value) {
+                                    setState(() {
+                                    });
+                                  },
+                                ),
+                                const Text('System default'),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 2,
+                                  groupValue: 4,
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
+                                ),
+                                const Text('Light'),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 3,
+                                  groupValue: 4,
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
+                                ),
+                                const Text('Dark'),
+                              ],
+                            ),
+                          ],
+                        ),
                       );
+                    
                     }
                   })
             ],
@@ -169,17 +230,21 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        tooltip: 'Save changes',
-        icon: Icon(
+        backgroundColor: Colors.lightBlue[800],
+        onPressed: () {
+          HapticFeedback.mediumImpact();
+            Navigator.pop(context);
+        },
+        tooltip: 'Done',
+        icon: const Icon(
           Icons.check,
-          color: Theme.of(context).colorScheme.secondary,
+          color: Colors.white,
         ),
-        label: Text(
-          'Save changes',
+        label: const Text(
+          'Done',
           textAlign: TextAlign.right,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
+            color: Colors.white,
           ),
         ),
       ),
