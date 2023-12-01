@@ -49,15 +49,20 @@ class _SplashScreenState extends State<SplashScreen> {
                   ScaleEffect(
                       duration: 800.ms, curve: Curves.fastEaseInToSlowEaseOut)
                 ],
-                child: SizedBox(
+                child: const SizedBox(
                   height: 150,
                   width: 250,
-                  //child: Image.asset('assets/images/tripify_logo.png'),
+                  child: Text(
+                    'Y',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 120, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Animate(
                 effects: [
-                  FadeEffect(duration: 500.ms, delay: 1000.ms),
+                  FadeEffect(duration: 500.ms, delay: 1500.ms),
                   SlideEffect(duration: 800.ms, curve: Curves.elasticOut)
                 ],
                 child: Container(
@@ -65,9 +70,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Text(
                     Global.appName,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       height: 1.2,
-                      color: Colors.lightBlue[800],
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
                     ),
