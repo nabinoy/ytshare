@@ -29,6 +29,10 @@ class _YTShareState extends State<YTShare> {
 
   Future<void> futureCall() async {
     themeOrder = await SharedService.getThemeOrder();
+    if (themeOrder == 3) {
+        // ignore: use_build_context_synchronously
+        Provider.of<ThemeProvider>(context, listen: false).darkTheme(true);
+      }
   }
 
   @override
