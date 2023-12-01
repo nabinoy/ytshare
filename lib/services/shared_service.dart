@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedService{
-
+class SharedService {
   static Future<void> shareInit() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFirstTimeOpen = prefs.getBool('is_first_time_open') ?? true;
@@ -23,5 +22,4 @@ class SharedService{
     const keyTheme = 'themeOrder';
     return prefs.getInt(keyTheme) ?? 1;
   }
-
 }

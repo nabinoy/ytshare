@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ytshare/services/shared_service.dart';
 import 'package:ytshare/theme/theme_provider.dart';
@@ -14,6 +15,10 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   int selectedValue = 1;
+
+  Future<void> futureCall() async {
+    selectedValue = await SharedService.getThemeOrder();
+  }
 
   void darkTheme(bool data) {
     setState(() {
@@ -58,76 +63,123 @@ class _SettingsState extends State<Settings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Appearance',
-                style: TextStyle(fontSize: 20),
+              Row(
+                children: [
+                  Icon(MdiIcons.palette),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  const Text(
+                    'Appearance',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
-              Container(
-                //height: MediaQuery.sizeOf(context).height * 0.10,
-                color: Theme.of(context).colorScheme.primary,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Theme',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Row(
-                      children: [
-                        Radio(
-                          value: 1,
-                          groupValue: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value!;
-                            });
-                          },
+              const SizedBox(
+                height: 8,
+              ),
+              FutureBuilder(
+                  future: Future.wait([futureCall()]),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        Text('System default'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio(
-                          value: 2,
-                          groupValue: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value!;
-                              darkTheme(false);
-                              SharedService.setThemeOrder(selectedValue);
-                              Provider.of<ThemeProvider>(context, listen: false)
-                                  .darkTheme(false);
-                            });
-                          },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Theme',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  activeColor: Colors.blue,
+                                  value: 1,
+                                  groupValue: selectedValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedValue = value!;
+                                      SharedService.setThemeOrder(
+                                          selectedValue);
+                                    });
+                                  },
+                                ),
+                                const Text('System default'),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 2,
+                                  activeColor: Colors.blue,
+                                  groupValue: selectedValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedValue = value!;
+                                      darkTheme(false);
+                                      SharedService.setThemeOrder(
+                                          selectedValue);
+                                      Provider.of<ThemeProvider>(context,
+                                              listen: false)
+                                          .darkTheme(false);
+                                    });
+                                  },
+                                ),
+                                const Text('Light'),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 3,
+                                  activeColor: Colors.blue,
+                                  groupValue: selectedValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedValue = value!;
+                                      darkTheme(true);
+                                      SharedService.setThemeOrder(
+                                          selectedValue);
+                                      Provider.of<ThemeProvider>(context,
+                                              listen: false)
+                                          .darkTheme(true);
+                                    });
+                                  },
+                                ),
+                                const Text('Dark'),
+                              ],
+                            ),
+                          ],
                         ),
-                        Text('Light'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio(
-                          value: 3,
-                          groupValue: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value!;
-                              darkTheme(true);
-                              SharedService.setThemeOrder(selectedValue);
-                              Provider.of<ThemeProvider>(context, listen: false)
-                                  .darkTheme(true);
-                            });
-                          },
-                        ),
-                        Text('Dark'),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Text('Selected Value: $selectedValue'),
-                  ],
-                ),
-              )
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(color: Colors.white),
+                      );
+                    }
+                  })
             ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        tooltip: 'Save changes',
+        icon: Icon(
+          Icons.check,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        label: Text(
+          'Save changes',
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),
