@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_snackbar_content/flutter_snackbar_content.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
@@ -174,7 +175,22 @@ class _HomeState extends State<Home> {
                           getVideoInfo(youtubeVideoId).then((value) {
                             yt = value;
                             if (yt.isEmpty) {
-                              print('error empty');
+                              setState(() {
+                                isLoading = false;
+                              });
+                              const snackBar = SnackBar(
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                content: FlutterSnackbarContent(
+                                  message: 'Please enter a valid YouTube URL!',
+                                  contentType: ContentType.failure,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(snackBar);
                             } else {
                               setState(() {
                                 isLoading = false;
