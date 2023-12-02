@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:ytshare/model/youtube_data_model.dart';
 import 'package:ytshare/screens/settings.dart';
+import 'package:ytshare/services/youtube_api_service.dart';
+
+List<YouTubeModel> yt = [];
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -170,51 +174,11 @@ class _HomeState extends State<Home> {
                           });
 
                           String youtubeVideoId = extractVideoId(link);
-                          print('YouTube Video ID: $youtubeVideoId');
 
-                          // LoginRequestModel model = LoginRequestModel(
-                          //   email: email,
-                          //   password: password,
-                          // );
+                          getVideoInfo(youtubeVideoId).then((value) {
+                            yt = value;
+                          });
 
-                          // APIService.login(model).then(
-                          //   (response) {
-                          //     setState(() {
-                          //       isApiCallProcess = false;
-                          //     });
-                          //     if (response) {
-                          //       SharedService.setSharedHomeAfter(true);
-                          //       Navigator.pushNamedAndRemoveUntil(
-                          //         context,
-                          //         Home.routeName,
-                          //         (route) => false,
-                          //       );
-                          //     } else {
-                          //       isLoading = false;
-                          //       final snackBar = SnackBar(
-                          //         width: double.infinity,
-                          //         dismissDirection: DismissDirection.down,
-                          //         elevation: 0,
-                          //         behavior: SnackBarBehavior.floating,
-                          //         backgroundColor: Colors.transparent,
-                          //         content: DefaultTextStyle(
-                          //           style: const TextStyle(
-                          //             fontFamily: fontRegular,
-                          //           ),
-                          //           child: AwesomeSnackbarContent(
-                          //             title: 'Error!',
-                          //             message:
-                          //                 'Email or password is incorrect, please try again!',
-                          //             contentType: ContentType.failure,
-                          //           ),
-                          //         ),
-                          //       );
-                          //       ScaffoldMessenger.of(context)
-                          //         ..hideCurrentSnackBar()
-                          //         ..showSnackBar(snackBar);
-                          //     }
-                          //   },
-                          // );
                         }
                       },
                       color: Colors.lightBlue[800],
