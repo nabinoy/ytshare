@@ -6,7 +6,6 @@ import 'package:ytshare/router.dart';
 import 'package:ytshare/services/shared_service.dart';
 import 'package:ytshare/splash/splash_screen.dart';
 import 'package:ytshare/theme/theme.dart';
-//import 'package:ytshare/theme/theme.dart';
 import 'package:ytshare/theme/theme_provider.dart';
 
 void main() {
@@ -32,7 +31,7 @@ class _YTShareState extends State<YTShare> {
     if (themeOrder==2) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             systemNavigationBarColor:
-                    Colors.grey.shade400,
+                    Colors.grey.shade300,
             systemNavigationBarIconBrightness:Brightness.dark,
           ));
     }
@@ -57,7 +56,7 @@ class _YTShareState extends State<YTShare> {
             systemNavigationBarColor:
                 (MediaQuery.of(context).platformBrightness == Brightness.dark)
                     ? Colors.grey.shade900
-                    : Colors.grey.shade400,
+                    : Colors.grey.shade300,
             systemNavigationBarIconBrightness:
                 (MediaQuery.of(context).platformBrightness == Brightness.dark)
                     ? Brightness.light

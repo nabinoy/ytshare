@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   void updateSystemNavigationBar() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor:
-          isDarkMode ? Colors.grey.shade900 : Colors.grey.shade400,
+          isDarkMode ? Colors.grey.shade900 : Colors.grey.shade300,
       systemNavigationBarIconBrightness:
           isDarkMode ? Brightness.light : Brightness.dark,
     ));

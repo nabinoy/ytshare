@@ -29,7 +29,7 @@ class _SettingsState extends State<Settings> {
   void updateSystemNavigationBar(bool data) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor:
-          data ? Colors.grey.shade900 : Colors.grey.shade400,
+          data ? Colors.grey.shade900 : Colors.grey.shade300,
       systemNavigationBarIconBrightness:
           data ? Brightness.light : Brightness.dark,
     ));
@@ -192,7 +192,16 @@ class _SettingsState extends State<Settings> {
                                     });
                                   },
                                 ),
-                                const Text('System default'),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text('System default'),
+                                    const SizedBox(width: 6,),
+                                    Icon(MdiIcons.alertCircleOutline,size: 10,color: Colors.red,),
+                                    const SizedBox(width: 2,),
+                                    const Text('Any changes requires restart',style: TextStyle(fontSize: 10,color: Colors.red,),),
+                                  ],
+                                ),
                               ],
                             ),
                             Row(
