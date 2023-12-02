@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -45,7 +46,14 @@ class _DetailsState extends State<VideoDetails> {
           child: Column(
             children: [
               Text('Title:  ${youtubeInfo.first.snippet.title}'),
-              Text('Description:  ${youtubeInfo.first.snippet.description}'),
+              ExpandableText(
+                youtubeInfo.first.snippet.description,
+                animation: true,
+                expandText: 'show more',
+                collapseText: 'show less',
+                maxLines: 7,
+                linkColor: Colors.lightBlue[800],
+              ),
               Text('Channel title:  ${youtubeInfo.first.snippet.channelTitle}'),
               Text('Dimension:  ${youtubeInfo.first.contentDetails.dimension}'),
               Text(
