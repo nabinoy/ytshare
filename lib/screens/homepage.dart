@@ -165,7 +165,9 @@ class _HomeState extends State<Home> {
                         }
 
                         if (_formKey.currentState!.validate()) {
-                          isLoading = true;
+                          setState(() {
+                            isLoading = true;
+                          });
 
                           String youtubeVideoId = extractVideoId(url);
 
@@ -178,7 +180,8 @@ class _HomeState extends State<Home> {
                                 isLoading = false;
                               });
 
-                              Navigator.pushNamed(context, VideoDetails.routeName,
+                              Navigator.pushNamed(
+                                  context, VideoDetails.routeName,
                                   arguments: yt);
                             }
                           });

@@ -50,41 +50,41 @@ class _DetailsState extends State<VideoDetails> {
               Text('Dimension:  ${youtubeInfo.first.contentDetails.dimension}'),
               Text(
                   'Definition:  ${youtubeInfo.first.contentDetails.definition}'),
-                  GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ImageViewer(
-                                            imagePath: youtubeInfo.first.snippet.thumbnails.default2.url),
-                                      ),
-                                    );
-                                  },
-                                  child: Hero(
-                                    tag: youtubeInfo.first.snippet.thumbnails.default2.url,
-                                    child: Container(
-                                      margin: const EdgeInsets.only(right: 8),
-                                      width: 160,
-                                      height: 160,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: CachedNetworkImage(
-                                          height: 430,
-                                          alignment: Alignment.bottomCenter,
-                                          imageUrl: youtubeInfo.first.snippet.thumbnails.default2.url,
-                                          placeholder: (context, url) =>
-                                              Image.memory(
-                                            kTransparentImage,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          fadeInDuration:
-                                              const Duration(milliseconds: 200),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageViewer(
+                          imagePath:
+                              youtubeInfo.first.snippet.thumbnails.maxres.url),
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: youtubeInfo.first.snippet.thumbnails.maxres.url,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    width: 356,
+                    height: 200,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CachedNetworkImage(
+                        height: 430,
+                        alignment: Alignment.bottomCenter,
+                        imageUrl:
+                            youtubeInfo.first.snippet.thumbnails.maxres.url,
+                        placeholder: (context, url) => Image.memory(
+                          kTransparentImage,
+                          fit: BoxFit.cover,
+                        ),
+                        fadeInDuration: const Duration(milliseconds: 200),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

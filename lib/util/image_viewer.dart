@@ -20,6 +20,8 @@ class ImageViewer extends StatelessWidget {
             tag: imagePath,
             child: PhotoView(
               imageProvider: NetworkImage(imagePath),
+              backgroundDecoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background),
               initialScale: PhotoViewComputedScale.contained,
             ),
           ),
