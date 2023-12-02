@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
+import 'package:ytshare/screens/video_details.dart';
 import 'package:ytshare/screens/settings.dart';
 import 'package:ytshare/services/youtube_api_service.dart';
 
@@ -18,9 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isDarkMode = false;
 
-  bool isApiCallProcess = false;
-  String link = "";
-  String password = "";
+  String url = "";
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -41,11 +40,9 @@ class _HomeState extends State<Home> {
   }
 
   String extractVideoId(String url) {
-    // Regular expression to match YouTube video ID in the URL
     RegExp regExp = RegExp(
         r'^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})');
 
-    // Extract video ID using the regular expression
     Match? match = regExp.firstMatch(url);
 
     if (match != null && match.groupCount >= 1) {
@@ -144,7 +141,7 @@ class _HomeState extends State<Home> {
                               contentPadding: const EdgeInsets.all(16),
                             ),
                             onChanged: (value) => setState(() {
-                              link = value;
+                              url = value;
                             }),
                           ),
                         ),
@@ -169,16 +166,22 @@ class _HomeState extends State<Home> {
 
                         if (_formKey.currentState!.validate()) {
                           isLoading = true;
-                          setState(() {
-                            isApiCallProcess = true;
-                          });
 
-                          String youtubeVideoId = extractVideoId(link);
+                          String youtubeVideoId = extractVideoId(url);
 
                           getVideoInfo(youtubeVideoId).then((value) {
                             yt = value;
-                          });
+                            if (yt.isEmpty) {
+                              print('error empty');
+                            } else {
+                              setState(() {
+                                isLoading = false;
+                              });
 
+                              Navigator.pushNamed(context, VideoDetails.routeName,
+                                  arguments: yt);
+                            }
+                          });
                         }
                       },
                       color: Colors.lightBlue[800],
