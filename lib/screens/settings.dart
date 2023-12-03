@@ -114,10 +114,24 @@ class _SettingsState extends State<Settings> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const Text('Automatic'),
-                                    const SizedBox(width: 6,),
-                                    Icon(MdiIcons.alertCircleOutline,size: 10,color: Colors.red,),
-                                    const SizedBox(width: 2,),
-                                    const Text('Any changes requires restart',style: TextStyle(fontSize: 10,color: Colors.red,),),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Icon(
+                                      MdiIcons.alertCircleOutline,
+                                      size: 10,
+                                      color: Colors.red,
+                                    ),
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    const Text(
+                                      'Any changes requires restart',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.red,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -188,18 +202,31 @@ class _SettingsState extends State<Settings> {
                                   value: 1,
                                   groupValue: 4,
                                   onChanged: (value) {
-                                    setState(() {
-                                    });
+                                    setState(() {});
                                   },
                                 ),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text('System default'),
-                                    const SizedBox(width: 6,),
-                                    Icon(MdiIcons.alertCircleOutline,size: 10,color: Colors.red,),
-                                    const SizedBox(width: 2,),
-                                    const Text('Any changes requires restart',style: TextStyle(fontSize: 10,color: Colors.red,),),
+                                    const Text('Automatic'),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Icon(
+                                      MdiIcons.alertCircleOutline,
+                                      size: 10,
+                                      color: Colors.red,
+                                    ),
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    const Text(
+                                      'Any changes requires restart',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.red,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -231,7 +258,6 @@ class _SettingsState extends State<Settings> {
                           ],
                         ),
                       );
-                    
                     }
                   })
             ],
@@ -242,7 +268,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.lightBlue[800],
         onPressed: () {
           HapticFeedback.mediumImpact();
-            Navigator.pop(context);
+          Navigator.pop(context);
         },
         tooltip: 'Done',
         icon: const Icon(
