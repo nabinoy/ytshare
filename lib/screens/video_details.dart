@@ -43,7 +43,7 @@ class _DetailsState extends State<VideoDetails> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(14.0),
           child: Column(
             children: [
               Container(
@@ -72,7 +72,7 @@ class _DetailsState extends State<VideoDetails> {
                           width: MediaQuery.of(context).size.width,
                           height: 200,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(13),
                             child: CachedNetworkImage(
                               alignment: Alignment.bottomCenter,
                               imageUrl: youtubeInfo
@@ -99,93 +99,101 @@ class _DetailsState extends State<VideoDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text(
-                      youtubeInfo.first.snippet.channelTitle,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 14),
+                    Row(
+                      children: [
+                        Icon(
+                          MdiIcons.youtube,
+                          size: 18,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          youtubeInfo.first.snippet.channelTitle,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 12,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
+                        Column(
                           children: [
-                            Container(
-                              alignment: Alignment.topCenter,
-                              padding: const EdgeInsets.fromLTRB(0, 4, 8, 0),
-                              child: const Icon(
-                                Icons.location_pin,
-                                size: 30,
-                                color: Color.fromARGB(255, 195, 19, 16),
+                            Text(
+                              youtubeInfo.first.statistics.likeCount,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-                            Column(
+                            Row(
                               children: [
-                                Text(
-                                  'Distance',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey[700] as Color),
+                                Icon(
+                                  MdiIcons.thumbUpOutline,
+                                  size: 12,
                                 ),
-                                Text(
-                                  'km',
-                                  style: const TextStyle(fontSize: 14),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                const Text(
+                                  'Likes',
+                                  style: TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        Row(
+                        Column(
                           children: [
-                            Container(
-                              alignment: Alignment.topCenter,
-                              padding: const EdgeInsets.fromLTRB(0, 4, 8, 0),
-                              child: Icon(
-                                MdiIcons.star,
-                                size: 30,
-                                color: Color.fromARGB(255, 255, 231, 13),
+                            Text(
+                              youtubeInfo.first.statistics.viewCount,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-                            Column(
+                            Row(
                               children: [
-                                Text(
-                                  'Rating',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey[700] as Color),
+                                Icon(
+                                  MdiIcons.playOutline,
+                                  size: 16,
                                 ),
-                                Text(
-                                  'fff',
-                                  style: const TextStyle(fontSize: 14),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                const Text(
+                                  'Views',
+                                  style: TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        Row(
+                        Column(
                           children: [
-                            Container(
-                              alignment: Alignment.topCenter,
-                              padding: const EdgeInsets.fromLTRB(0, 4, 8, 0),
-                              child: const Icon(
-                                Icons.sunny,
-                                size: 30,
-                                color: Colors.orange,
+                            Text(
+                              youtubeInfo.first.statistics.commentCount,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-                            Column(
+                            Row(
                               children: [
-                                Text(
-                                  'Weather',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey[700] as Color),
+                                Icon(
+                                  MdiIcons.commentOutline,
+                                  size: 12,
                                 ),
-                                Text(
-                                  '°c',
-                                  style: const TextStyle(fontSize: 14),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                const Text(
+                                  'Comments',
+                                  style: TextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
