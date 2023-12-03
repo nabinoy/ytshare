@@ -23,6 +23,12 @@ class _DetailsState extends State<VideoDetails> {
     return formattedDateString;
   }
 
+  String formatNumber(int number) {
+    NumberFormat numberFormat = NumberFormat('##,##,###');
+    String formattedNumber = numberFormat.format(number);
+    return formattedNumber;
+  }
+
   String formatDuration(String durationString) {
     durationString = durationString.replaceAll("PT", "");
 
@@ -189,7 +195,8 @@ class _DetailsState extends State<VideoDetails> {
                         Column(
                           children: [
                             Text(
-                              youtubeInfo.first.statistics.likeCount,
+                              formatNumber(int.parse(
+                                  youtubeInfo.first.statistics.likeCount)),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -215,7 +222,8 @@ class _DetailsState extends State<VideoDetails> {
                         Column(
                           children: [
                             Text(
-                              youtubeInfo.first.statistics.viewCount,
+                              formatNumber(int.parse(
+                                  youtubeInfo.first.statistics.viewCount)),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -241,7 +249,8 @@ class _DetailsState extends State<VideoDetails> {
                         Column(
                           children: [
                             Text(
-                              youtubeInfo.first.statistics.commentCount,
+                              formatNumber(int.parse(
+                                  youtubeInfo.first.statistics.commentCount)),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -342,13 +351,16 @@ class _DetailsState extends State<VideoDetails> {
                         Row(
                           children: [
                             const Text('Caption     '),
-                            (youtubeInfo.first.contentDetails.caption != 'true')
+                            (youtubeInfo.first.contentDetails.caption == 'true')
                                 ? Icon(
                                     Icons.closed_caption,
                                     color: Colors.red[700],
                                     size: 31,
                                   )
-                                : const Icon(Icons.closed_caption_disabled)
+                                : const Icon(
+                                    Icons.closed_caption_disabled,
+                                    size: 28,
+                                  )
                           ],
                         )
                       ],

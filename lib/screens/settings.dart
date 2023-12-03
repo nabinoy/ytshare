@@ -113,7 +113,7 @@ class _SettingsState extends State<Settings> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text('System default'),
+                                    const Text('Automatic'),
                                     const SizedBox(width: 6,),
                                     Icon(MdiIcons.alertCircleOutline,size: 10,color: Colors.red,),
                                     const SizedBox(width: 2,),
