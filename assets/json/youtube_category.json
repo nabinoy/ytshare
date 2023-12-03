@@ -1,0 +1,164 @@
+{
+    "categories": [
+        {
+            "id": "1",
+            "name": "Film & Animation",
+            "icon": "filmstrip-box-multiple"
+        },
+        {
+            "id": "2",
+            "name": "Autos & Vehicles",
+            "icon": "car-cog"
+        },
+        {
+            "id": "10",
+            "name": "Music",
+            "icon": "music"
+        },
+        {
+            "id": "15",
+            "name": "Pets & Animals",
+            "icon": "paw"
+        },
+        {
+            "id": "17",
+            "name": "Sports",
+            "icon": "cricket"
+        },
+        {
+            "id": "18",
+            "name": "Short Movies",
+            "icon": "movie-open-outline"
+        },
+        {
+            "id": "19",
+            "name": "Travel & Events",
+            "icon": "plane-car"
+        },
+        {
+            "id": "20",
+            "name": "Gaming",
+            "icon": "controller"
+        },
+        {
+            "id": "21",
+            "name": "Videoblogging",
+            "icon": "camera-gopro"
+        },
+        {
+            "id": "22",
+            "name": "People & Blogs",
+            "icon": "account-heart"
+        },
+        {
+            "id": "23",
+            "name": "Comedy",
+            "icon": "emoticon-excited-outline"
+        },
+        {
+            "id": "24",
+            "name": "Entertainment",
+            "icon": "popcorn"
+        },
+        {
+            "id": "25",
+            "name": "News & Politics",
+            "icon": "popcorn"
+        },
+        {
+            "id": "26",
+            "name": "Howto & Style",
+            "icon": "popcorn"
+        },
+        {
+            "id": "27",
+            "name": "Education",
+            "icon": "popcorn"
+        },
+        {
+            "id": "28",
+            "name": "Science & Technology",
+            "icon": "popcorn"
+        },
+        {
+            "id": "29",
+            "name": "Nonprofits & Activism",
+            "icon": "popcorn"
+        },
+        {
+            "id": "30",
+            "name": "Movies",
+            "icon": "popcorn"
+        },
+        {
+            "id": "31",
+            "name": "Anime/Animation",
+            "icon": "popcorn"
+        },
+        {
+            "id": "32",
+            "name": "Action/Adventure",
+            "icon": "popcorn"
+        },
+        {
+            "id": "33",
+            "name": "Classics",
+            "icon": "popcorn"
+        },
+        {
+            "id": "34",
+            "name": "Comedy",
+            "icon": "popcorn"
+        },
+        {
+            "id": "35",
+            "name": "Documentary",
+            "icon": "popcorn"
+        },
+        {
+            "id": "36",
+            "name": "Drama",
+            "icon": "popcorn"
+        },
+        {
+            "id": "37",
+            "name": "Family",
+            "icon": "popcorn"
+        },
+        {
+            "id": "38",
+            "name": "Foreign",
+            "icon": "popcorn"
+        },
+        {
+            "id": "39",
+            "name": "Horror",
+            "icon": "popcorn"
+        },
+        {
+            "id": "40",
+            "name": "Sci-Fi/Fantasy",
+            "icon": "popcorn"
+        },
+        {
+            "id": "41",
+            "name": "Thriller",
+            "icon": "popcorn"
+        },
+        {
+            "id": "42",
+            "name": "Shorts",
+            "icon": "popcorn"
+        },
+        {
+            "id": "43",
+            "name": "Shows",
+            "icon": "popcorn"
+        },
+        {
+            "id": "44",
+            "name": "Trailers",
+            "icon": "popcorn"
+        }
+    ]
+}

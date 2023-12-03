@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:ytshare/model/category_model.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
 import 'package:ytshare/util/image_viewer.dart';
 
@@ -17,6 +20,36 @@ class VideoDetails extends StatefulWidget {
 }
 
 class _DetailsState extends State<VideoDetails> {
+  List<Category> categories = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadCategories();
+  }
+
+  Future<String> loadJsonData() async {
+    return await rootBundle.loadString('assets/json/youtube_category.json');
+  }
+
+  Future loadCategories() async {
+    String jsonData = await loadJsonData();
+    final jsonResponse = json.decode(jsonData);
+    setState(() {
+      categories = (jsonResponse['categories'] as List)
+          .map((data) => Category.fromJson(data))
+          .toList();
+    });
+  }
+
+  String findCategoryNameById(String id) {
+    Category? category = categories.firstWhere(
+      (element) => element.id == id,
+      orElse: () => Category(id: '', name: 'Not Found', icon: ''),
+    );
+    return category.name;
+  }
+
   String formatDateString(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
     String formattedDateString = DateFormat('dd MMMM yyyy').format(dateTime);
@@ -179,101 +212,113 @@ class _DetailsState extends State<VideoDetails> {
                         const SizedBox(
                           width: 4,
                         ),
-                        Text(
-                          youtubeInfo.first.snippet.channelTitle,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 14),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Text(
+                            youtubeInfo.first.snippet.channelTitle,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 14),
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              formatNumber(int.parse(
-                                  youtubeInfo.first.statistics.likeCount)),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                formatNumber(int.parse(
+                                    youtubeInfo.first.statistics.likeCount)),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.thumbUpOutline,
-                                  size: 12,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                const Text(
-                                  'Likes',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              formatNumber(int.parse(
-                                  youtubeInfo.first.statistics.viewCount)),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                              Row(
+                                children: [
+                                  Icon(
+                                    MdiIcons.thumbUpOutline,
+                                    size: 12,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  const Text(
+                                    'Likes',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.playOutline,
-                                  size: 16,
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                formatNumber(int.parse(
+                                    youtubeInfo.first.statistics.viewCount)),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
                                 ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                const Text(
-                                  'Views',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              formatNumber(int.parse(
-                                  youtubeInfo.first.statistics.commentCount)),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.commentOutline,
-                                  size: 12,
+                              Row(
+                                children: [
+                                  Icon(
+                                    MdiIcons.playOutline,
+                                    size: 16,
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  const Text(
+                                    'Views',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                formatNumber(int.parse(
+                                    youtubeInfo.first.statistics.commentCount)),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
                                 ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                const Text(
-                                  'Comments',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    MdiIcons.commentOutline,
+                                    size: 12,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  const Text(
+                                    'Comments',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -365,7 +410,13 @@ class _DetailsState extends State<VideoDetails> {
                         )
                       ],
                     ),
-                    Text('Category ${youtubeInfo.first.snippet.categoryId}')
+                    Row(
+                      children: [
+                        Text('Category  '),
+                        Text(findCategoryNameById(
+                            youtubeInfo.first.snippet.categoryId))
+                      ],
+                    )
                   ],
                 ),
               ),
