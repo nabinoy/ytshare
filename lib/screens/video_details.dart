@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
@@ -16,6 +17,45 @@ class VideoDetails extends StatefulWidget {
 }
 
 class _DetailsState extends State<VideoDetails> {
+  String formatDateString(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+    String formattedDateString = DateFormat('dd MMMM yyyy').format(dateTime);
+    return formattedDateString;
+  }
+
+  String formatDuration(String durationString) {
+    durationString = durationString.replaceAll("PT", "");
+
+    if (durationString.contains("H")) {
+      List<String> parts = durationString.split("H");
+
+      int hours = int.parse(parts[0]);
+      int minutes =
+          parts[1].contains("M") ? int.parse(parts[1].split("M")[0]) : 0;
+      int seconds = parts[1].contains("S")
+          ? int.parse(parts[1].split("M")[1].replaceAll("S", ""))
+          : 0;
+
+      return '$hours:${_twoDigits(minutes)}:${_twoDigits(seconds)}';
+    } else if (durationString.contains("M")) {
+      List<String> parts = durationString.split("M");
+
+      int minutes = int.parse(parts[0]);
+      int seconds =
+          parts[1].contains("S") ? int.parse(parts[1].replaceAll("S", "")) : 0;
+
+      return '${_twoDigits(minutes)}:${_twoDigits(seconds)}';
+    } else {
+      int seconds = int.parse(durationString.replaceAll("S", ""));
+      return '0:${_twoDigits(seconds)}';
+    }
+  }
+
+  String _twoDigits(int n) {
+    if (n >= 10) return "$n";
+    return "0$n";
+  }
+
   @override
   Widget build(BuildContext context) {
     List<YouTubeModel> youtubeInfo =
@@ -47,7 +87,7 @@ class _DetailsState extends State<VideoDetails> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(15),
@@ -66,26 +106,51 @@ class _DetailsState extends State<VideoDetails> {
                           ),
                         );
                       },
-                      child: Hero(
-                        tag: youtubeInfo.first.snippet.thumbnails.maxres.url,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 200,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(13),
-                            child: CachedNetworkImage(
-                              alignment: Alignment.bottomCenter,
-                              imageUrl: youtubeInfo
-                                  .first.snippet.thumbnails.maxres.url,
-                              placeholder: (context, url) => Image.memory(
-                                kTransparentImage,
-                                fit: BoxFit.cover,
+                      child: Stack(
+                        children: [
+                          Hero(
+                            tag:
+                                youtubeInfo.first.snippet.thumbnails.maxres.url,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(13),
+                                child: CachedNetworkImage(
+                                  alignment: Alignment.center,
+                                  imageUrl: youtubeInfo
+                                      .first.snippet.thumbnails.maxres.url,
+                                  placeholder: (context, url) => Image.memory(
+                                    kTransparentImage,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  fadeInDuration:
+                                      const Duration(milliseconds: 200),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              fadeInDuration: const Duration(milliseconds: 200),
-                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
+                          Positioned(
+                              right: 10,
+                              bottom: 10,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 2, horizontal: 6),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  formatDuration(youtubeInfo
+                                      .first.contentDetails.duration),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ))
+                        ],
                       ),
                     ),
                     const SizedBox(
@@ -94,7 +159,7 @@ class _DetailsState extends State<VideoDetails> {
                     Text(
                       youtubeInfo.first.snippet.title,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     const SizedBox(
                       height: 8,
@@ -208,23 +273,90 @@ class _DetailsState extends State<VideoDetails> {
                 height: 10,
               ),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: ExpandableText(
-                  youtubeInfo.first.snippet.description,
-                  animation: true,
-                  expandText: 'show more',
-                  collapseText: 'show less',
-                  maxLines: 7,
-                  linkColor: Colors.lightBlue[800],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      formatDateString(youtubeInfo.first.snippet.publishedAt),
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    ExpandableText(
+                      youtubeInfo.first.snippet.description,
+                      animation: true,
+                      expandText: 'show more',
+                      collapseText: 'show less',
+                      maxLines: 7,
+                      linkColor: Colors.lightBlue[800],
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
               ),
-              Text('Dimension:  ${youtubeInfo.first.contentDetails.dimension}'),
-              Text(
-                  'Definition:  ${youtubeInfo.first.contentDetails.definition}'),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Text('Definition   '),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 2, horizontal: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlue[800],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                youtubeInfo.first.contentDetails.definition
+                                    .toUpperCase(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 11),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            const Text('Caption     '),
+                            (youtubeInfo.first.contentDetails.caption != 'true')
+                                ? Icon(
+                                    Icons.closed_caption,
+                                    color: Colors.red[700],
+                                    size: 31,
+                                  )
+                                : const Icon(Icons.closed_caption_disabled)
+                          ],
+                        )
+                      ],
+                    ),
+                    Text('Category ${youtubeInfo.first.snippet.categoryId}')
+                  ],
+                ),
+              ),
             ],
           ),
         ),
