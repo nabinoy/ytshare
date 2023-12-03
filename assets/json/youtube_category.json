@@ -63,102 +63,102 @@
         {
             "id": "25",
             "name": "News & Politics",
-            "icon": "popcorn"
+            "icon": "newspaper-variant-outline"
         },
         {
             "id": "26",
             "name": "Howto & Style",
-            "icon": "popcorn"
+            "icon": "human-male-board-poll"
         },
         {
             "id": "27",
             "name": "Education",
-            "icon": "popcorn"
+            "icon": "school"
         },
         {
             "id": "28",
             "name": "Science & Technology",
-            "icon": "popcorn"
+            "icon": "devices"
         },
         {
             "id": "29",
             "name": "Nonprofits & Activism",
-            "icon": "popcorn"
+            "icon": "hand-heart"
         },
         {
             "id": "30",
             "name": "Movies",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "31",
             "name": "Anime/Animation",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "32",
             "name": "Action/Adventure",
-            "icon": "popcorn"
+            "icon": "run-fast"
         },
         {
             "id": "33",
             "name": "Classics",
-            "icon": "popcorn"
+            "icon": "video-vintage"
         },
         {
             "id": "34",
             "name": "Comedy",
-            "icon": "popcorn"
+            "icon": "emoticon-excited-outline"
         },
         {
             "id": "35",
             "name": "Documentary",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "36",
             "name": "Drama",
-            "icon": "popcorn"
+            "icon": "drama-masks"
         },
         {
             "id": "37",
             "name": "Family",
-            "icon": "popcorn"
+            "icon": "human-male-female-child"
         },
         {
             "id": "38",
             "name": "Foreign",
-            "icon": "popcorn"
+            "icon": "earth"
         },
         {
             "id": "39",
             "name": "Horror",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "40",
             "name": "Sci-Fi/Fantasy",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "41",
             "name": "Thriller",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "42",
             "name": "Shorts",
-            "icon": "popcorn"
+            "icon": "cellphone-arrow-down"
         },
         {
             "id": "43",
             "name": "Shows",
-            "icon": "popcorn"
+            "icon": "movie-open"
         },
         {
             "id": "44",
             "name": "Trailers",
-            "icon": "popcorn"
+            "icon": "movie-open"
         }
     ]
 }

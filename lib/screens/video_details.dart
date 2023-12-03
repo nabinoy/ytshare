@@ -50,6 +50,14 @@ class _DetailsState extends State<VideoDetails> {
     return category.name;
   }
 
+  String findCategoryIconById(String id) {
+    Category? category = categories.firstWhere(
+      (element) => element.id == id,
+      orElse: () => Category(id: '', name: 'Others', icon: ''),
+    );
+    return category.icon;
+  }
+
   String formatDateString(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
     String formattedDateString = DateFormat('dd MMMM yyyy').format(dateTime);
@@ -363,11 +371,10 @@ class _DetailsState extends State<VideoDetails> {
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
@@ -390,12 +397,9 @@ class _DetailsState extends State<VideoDetails> {
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 3,
-                        ),
                         Row(
                           children: [
-                            const Text('Caption     '),
+                            const Text('Caption   '),
                             (youtubeInfo.first.contentDetails.caption == 'true')
                                 ? Icon(
                                     Icons.closed_caption,
@@ -410,11 +414,34 @@ class _DetailsState extends State<VideoDetails> {
                         )
                       ],
                     ),
-                    Row(
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Column(
                       children: [
-                        Text('Category  '),
-                        Text(findCategoryNameById(
-                            youtubeInfo.first.snippet.categoryId))
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              MdiIcons.fromString(findCategoryIconById(
+                                  youtubeInfo.first.snippet.categoryId)),
+                              size: 30,
+                            ),
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              findCategoryNameById(
+                                  youtubeInfo.first.snippet.categoryId),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        const Text(
+                          'Category',
+                          style: TextStyle(fontSize: 12),
+                        )
                       ],
                     )
                   ],
