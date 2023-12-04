@@ -9,6 +9,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:transparent_image/transparent_image.dart';
 import 'package:ytshare/model/category_model.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
+import 'package:ytshare/screens/editpage.dart';
 import 'package:ytshare/util/image_viewer.dart';
 
 class VideoDetails extends StatefulWidget {
@@ -466,7 +467,10 @@ class _DetailsState extends State<VideoDetails> {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   height: 50,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, EditPage.routeName,
+                        arguments: youtubeInfo);
+                  },
                   color: Colors.lightBlue[800],
                   elevation: 0,
                   shape: RoundedRectangleBorder(
