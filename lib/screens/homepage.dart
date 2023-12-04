@@ -210,13 +210,27 @@ class _HomeState extends State<Home> {
                       child: isLoading
                           ? const CircularProgressIndicator(
                               color: Colors.white,
+                              strokeCap: StrokeCap.round,
                             )
-                          : const Text(
-                              "Proceed",
-                              style: TextStyle(
+                          : const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Next",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Icon(
+                                  Icons.arrow_circle_right_outlined,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18),
+                                  size: 28,
+                                )
+                              ],
                             ),
                     ),
                   ),

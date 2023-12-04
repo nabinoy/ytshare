@@ -52,8 +52,10 @@ class Snippet {
     return Snippet(
         publishedAt: json['publishedAt'],
         channelId: json['channelId'],
-        title: json['title'],
-        description: json['description'],
+        title: (json['title'] == null) ? 'No title' : json['title'],
+        description: (json['description'] == null)
+            ? 'No description'
+            : json['description'],
         thumbnails: Thumbnails.fromJson(json['thumbnails']),
         channelTitle: json['channelTitle'],
         categoryId: json['categoryId'],
@@ -82,7 +84,11 @@ class Thumbnails {
         medium: ThumbnailType.fromJson(json['medium']),
         high: ThumbnailType.fromJson(json['high']),
         standard: ThumbnailType.fromJson(json['standard']),
-        maxres: ThumbnailType.fromJson(json['maxres']));
+        maxres: (json['maxres'] == null)
+            ? (json['standard'] == null)
+                ? ThumbnailType.fromJson(json['high'])
+                : ThumbnailType.fromJson(json['standard'])
+            : ThumbnailType.fromJson(json['maxres']));
   }
 }
 

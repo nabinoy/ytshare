@@ -130,7 +130,7 @@ class _DetailsState extends State<VideoDetails> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Column(
             children: [
               Container(
@@ -358,7 +358,7 @@ class _DetailsState extends State<VideoDetails> {
                       animation: true,
                       expandText: 'show more',
                       collapseText: 'show less',
-                      maxLines: 7,
+                      maxLines: 6,
                       linkColor: Colors.lightBlue[800],
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
@@ -369,7 +369,8 @@ class _DetailsState extends State<VideoDetails> {
                 height: 10,
               ),
               Container(
-                padding: const EdgeInsets.all(14),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(15),
@@ -381,7 +382,8 @@ class _DetailsState extends State<VideoDetails> {
                       children: [
                         Row(
                           children: [
-                            const Text('Definition  '),
+                            const Text('Definition  ',
+                                style: TextStyle(fontSize: 13)),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 2, horizontal: 4),
@@ -402,7 +404,8 @@ class _DetailsState extends State<VideoDetails> {
                         ),
                         Row(
                           children: [
-                            const Text('Caption  '),
+                            const Text('Caption  ',
+                                style: TextStyle(fontSize: 13)),
                             (youtubeInfo.first.contentDetails.caption == 'true')
                                 ? Icon(
                                     Icons.closed_caption,
@@ -418,7 +421,7 @@ class _DetailsState extends State<VideoDetails> {
                       ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     Column(
                       children: [
@@ -443,11 +446,51 @@ class _DetailsState extends State<VideoDetails> {
                         ),
                         const Text(
                           'Category',
-                          style: TextStyle(fontSize: 12),
-                        )
+                          style: TextStyle(fontSize: 13),
+                        ),
                       ],
-                    )
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
                   ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  height: 50,
+                  onPressed: () {},
+                  color: Colors.lightBlue[800],
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Proceed",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.white,
+                        size: 24,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
