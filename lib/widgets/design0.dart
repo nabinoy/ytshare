@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
@@ -20,10 +19,16 @@ class Design0 extends StatefulWidget {
 }
 
 class _Design0State extends State<Design0> {
-  String formatNumber(int number) {
-    NumberFormat numberFormat = NumberFormat('##,##,###');
-    String formattedNumber = numberFormat.format(number);
-    return formattedNumber;
+  String formatNumberAbbreviated(int number) {
+    if (number >= 1000000000) {
+      return '${(number / 1000000000).toStringAsFixed(1)}B';
+    } else if (number >= 1000000) {
+      return '${(number / 1000000).toStringAsFixed(1)}M';
+    } else if (number >= 1000) {
+      return '${(number / 1000).toStringAsFixed(1)}K';
+    } else {
+      return '$number';
+    }
   }
 
   String formatDuration(String durationString) {
@@ -146,7 +151,7 @@ class _Design0State extends State<Design0> {
               children: [
                 Icon(
                   MdiIcons.youtube,
-                  size: widget.widgetSize * 0.18,
+                  size: widget.widgetSize * 0.23,
                 ),
                 const SizedBox(
                   width: 4,
@@ -166,16 +171,102 @@ class _Design0State extends State<Design0> {
             SizedBox(
               height: widget.widgetSize * 0.12,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // ... rest of the code
-                  ],
-                ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        formatNumberAbbreviated(
+                            int.parse(youtubeInfo.first.statistics.likeCount)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.widgetSize * 0.2,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            MdiIcons.thumbUpOutline,
+                            size: widget.widgetSize * 0.13,
+                          ),
+                          SizedBox(
+                            width: widget.widgetSize * 0.06,
+                          ),
+                          Text(
+                            'Likes',
+                            style:
+                                TextStyle(fontSize: widget.widgetSize * 0.13),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: widget.widgetSize * 0.16,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        formatNumberAbbreviated(
+                            int.parse(youtubeInfo.first.statistics.viewCount)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.widgetSize * 0.2,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            MdiIcons.playOutline,
+                            size: widget.widgetSize * 0.16,
+                          ),
+                          SizedBox(
+                            width: widget.widgetSize * 0.02,
+                          ),
+                          Text(
+                            'Views',
+                            style:
+                                TextStyle(fontSize: widget.widgetSize * 0.13),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: widget.widgetSize * 0.16,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        formatNumberAbbreviated(int.parse(
+                            youtubeInfo.first.statistics.commentCount)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.widgetSize * 0.2,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            MdiIcons.commentOutline,
+                            size: widget.widgetSize * 0.13,
+                          ),
+                          SizedBox(
+                            width: widget.widgetSize * 0.06,
+                          ),
+                          Text(
+                            'Comments',
+                            style:
+                                TextStyle(fontSize: widget.widgetSize * 0.13),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
