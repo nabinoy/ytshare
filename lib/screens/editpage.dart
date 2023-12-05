@@ -111,6 +111,10 @@ class _EditPageState extends State<EditPage> {
                   setState(() {
                     _widgetSize = value;
                   });
+                }, (value) {
+                  setState(() {
+                    selectedDesign = value;
+                  });
                 }),
               ],
             )
@@ -125,8 +129,10 @@ class TabContent extends StatefulWidget {
   final int tabName;
   final double widgetSize;
   final ValueChanged<double> onSizeChanged;
+  final ValueChanged<int> onDesignChanged;
 
-  const TabContent(this.tabName, this.widgetSize, this.onSizeChanged,
+  const TabContent(
+      this.tabName, this.widgetSize, this.onSizeChanged, this.onDesignChanged,
       {super.key});
 
   @override
@@ -143,7 +149,48 @@ class _TabContentState extends State<TabContent> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: ((widget.tabName == 0))
-          ? Row(children: [Text('dfdfdf'), Text('sdfsdsf')])
+          ? Row(children: [
+              MaterialButton(
+                minWidth: 60,
+                height: 60,
+                onPressed: () {
+                  setState(() {
+                    widget.onDesignChanged(0);
+                  });
+                },
+                color: Colors.lightBlue[800],
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                child: Text(
+                  "Design 1",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                ),
+              ),
+              MaterialButton(
+                minWidth: 60,
+                height: 60,
+                onPressed: () {
+                  setState(() {
+                    widget.onDesignChanged(1);
+                  });
+                },
+                color: Colors.lightBlue[800],
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                child: Text(
+                  "Design 2",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                ),
+              ),
+            ])
           : (widget.tabName == 3)
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
