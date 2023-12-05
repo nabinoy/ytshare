@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ytshare/constants/global.dart';
+import 'package:ytshare/widgets/design0.dart';
 
 class EditPage extends StatefulWidget {
   static const String routeName = '/editpage';
@@ -14,6 +15,7 @@ class _EditPageState extends State<EditPage> {
   double _widgetSize = 50.0;
   Color _widgetColor = Colors.blue;
   int tabValue = 0;
+  int selectedDesign = 0;
 
   GlobalKey globalKey = GlobalKey();
   @override
@@ -40,80 +42,77 @@ class _EditPageState extends State<EditPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Stack(
-          alignment: AlignmentDirectional.topCenter,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: _widgetSize, // Adjust based on the maximum size
-              height: _widgetSize, // Adjust based on the maximum size
-              child: Container(
-                color: _widgetColor,
-                child: Text(
-                  'Text',
-                  style: TextStyle(fontSize: _widgetSize * 0.4),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('Size: ${_widgetSize.toInt()}'),
-                Slider(
-                  value: _widgetSize,
-                  min: 50,
-                  max: 200,
-                  onChanged: (value) {
+            (selectedDesign == 0)
+                ? Design0(_widgetSize, (value) {
                     setState(() {
                       _widgetSize = value;
                     });
-                  },
-                ),
-              ],
-            ),
-            Positioned(
-              bottom: 100,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  DefaultTabController(
-                    length: 4,
-                    child: TabBar(
-                      labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: Global.fontRegular),
-                      unselectedLabelStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.w100,
-                          fontFamily: Global.fontRegular),
-                      physics: const BouncingScrollPhysics(),
-                      isScrollable: true,
-                      indicatorPadding: const EdgeInsets.symmetric(vertical: 6),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      dividerHeight: 0,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80.0),
-                        color: Colors.grey.withOpacity(0.2),
+                  })
+                : Stack(alignment: Alignment.center, children: [
+                    Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.55,
+                        width: MediaQuery.of(context).size.width * 0.6),
+                    Container(
+                      width: _widgetSize, // Adjust based on the maximum size
+                      height: _widgetSize, // Adjust based on the maximum size
+                      child: Container(
+                        color: _widgetColor,
+                        child: Text(
+                          'Textb',
+                          style: TextStyle(fontSize: _widgetSize * 0.4),
+                        ),
                       ),
-                      splashFactory: NoSplash.splashFactory,
-                      tabs: [
-                        Tab(text: 'Design'),
-                        Tab(text: 'Selection'),
-                        Tab(text: 'Color'),
-                        Tab(text: 'Size'),
-                      ],
-                      onTap: (value) {
-                        setState(() {
-                          tabValue = value;
-                        });
-                      },
+                    )
+                  ]),
+            Column(
+              children: [
+                DefaultTabController(
+                  length: 4,
+                  child: TabBar(
+                    tabAlignment: TabAlignment.center,
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: Global.fontRegular),
+                    unselectedLabelStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: Global.fontRegular),
+                    physics: const BouncingScrollPhysics(),
+                    isScrollable: true,
+                    indicatorPadding: const EdgeInsets.symmetric(vertical: 10),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerHeight: 0,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80.0),
+                      color: Colors.grey.withOpacity(0.2),
                     ),
+                    splashFactory: NoSplash.splashFactory,
+                    tabs: [
+                      Tab(text: 'Design'),
+                      Tab(text: 'Selection'),
+                      Tab(text: 'Background'),
+                      Tab(text: 'Size'),
+                    ],
+                    onTap: (value) {
+                      setState(() {
+                        tabValue = value;
+                      });
+                    },
                   ),
-                  TabContent(tabValue),
-                ],
-              ),
+                ),
+                TabContent(tabValue, _widgetSize, (value) {
+                  setState(() {
+                    _widgetSize = value;
+                  });
+                }),
+              ],
             )
           ],
         ),
@@ -122,28 +121,62 @@ class _EditPageState extends State<EditPage> {
   }
 }
 
-class TabContent extends StatelessWidget {
+class TabContent extends StatefulWidget {
   final int tabName;
+  final double widgetSize;
+  final ValueChanged<double> onSizeChanged;
 
-  TabContent(this.tabName);
+  const TabContent(this.tabName, this.widgetSize, this.onSizeChanged,
+      {super.key});
 
   @override
+  State<TabContent> createState() => _TabContentState();
+}
+
+class _TabContentState extends State<TabContent> {
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Content for $tabName',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Selected Tab: $tabName',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.2,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(15),
       ),
+      child: ((widget.tabName == 0))
+          ? Row(children: [Text('dfdfdf'), Text('sdfsdsf')])
+          : (widget.tabName == 3)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Size: ${widget.widgetSize.toInt()}'),
+                    Slider(
+                      value: widget.widgetSize,
+                      min: 50,
+                      max: 200,
+                      onChanged: (value) {
+                        setState(() {
+                          widget.onSizeChanged(value);
+                        });
+                      },
+                    ),
+                  ],
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Content foreeee ${widget.tabName}',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Selected Tab: ${widget.tabName}',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
     );
   }
 }
