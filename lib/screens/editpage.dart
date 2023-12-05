@@ -12,8 +12,9 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  double _widgetSize = 50.0;
+  double _widgetSize = 45.0;
   Color _widgetColor = Colors.blue;
+  Color bgColor = Colors.grey;
   int tabValue = 0;
   int selectedDesign = 0;
 
@@ -46,15 +47,19 @@ class _EditPageState extends State<EditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             (selectedDesign == 0)
-                ? Design0(_widgetSize, (value) {
+                ? Design0(_widgetSize, bgColor, (value) {
                     setState(() {
                       _widgetSize = value;
+                    });
+                  }, (value) {
+                    setState(() {
+                      bgColor = value;
                     });
                   })
                 : Stack(alignment: Alignment.center, children: [
                     Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color: bgColor,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         height: MediaQuery.of(context).size.height * 0.55,
@@ -115,6 +120,10 @@ class _EditPageState extends State<EditPage> {
                   setState(() {
                     selectedDesign = value;
                   });
+                }, (value) {
+                  setState(() {
+                    bgColor = value;
+                  });
                 }),
               ],
             )
@@ -130,9 +139,10 @@ class TabContent extends StatefulWidget {
   final double widgetSize;
   final ValueChanged<double> onSizeChanged;
   final ValueChanged<int> onDesignChanged;
+  final ValueChanged<Color> onColorChanged;
 
-  const TabContent(
-      this.tabName, this.widgetSize, this.onSizeChanged, this.onDesignChanged,
+  const TabContent(this.tabName, this.widgetSize, this.onSizeChanged,
+      this.onDesignChanged, this.onColorChanged,
       {super.key});
 
   @override
@@ -191,39 +201,104 @@ class _TabContentState extends State<TabContent> {
                 ),
               ),
             ])
-          : (widget.tabName == 3)
+          : (widget.tabName == 2)
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Size: ${widget.widgetSize.toInt()}'),
-                    Slider(
-                      value: widget.widgetSize,
-                      min: 50,
-                      max: 200,
-                      onChanged: (value) {
+                    MaterialButton(
+                      minWidth: 60,
+                      height: 60,
+                      onPressed: () {
                         setState(() {
-                          widget.onSizeChanged(value);
+                          widget.onColorChanged(Colors.lightBlue);
                         });
                       },
+                      color: Colors.lightBlue,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text(
+                        "",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20),
+                      ),
                     ),
+                    MaterialButton(
+                      minWidth: 60,
+                      height: 60,
+                      onPressed: () {
+                        setState(() {
+                          widget.onColorChanged(Colors.red);
+                        });
+                      },
+                      color: Colors.red,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text(
+                        "",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20),
+                      ),
+                    ),
+                    MaterialButton(
+                      minWidth: 60,
+                      height: 60,
+                      onPressed: () {
+                        setState(() {
+                          widget.onColorChanged(Colors.grey);
+                        });
+                      },
+                      color: Colors.grey,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text(
+                        "",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20),
+                      ),
+                    )
                   ],
                 )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Content foreeee ${widget.tabName}',
-                        style: TextStyle(fontSize: 24),
+              : (widget.tabName == 3)
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('Size: ${widget.widgetSize.toInt()}'),
+                        Slider(
+                          value: widget.widgetSize,
+                          min: 30,
+                          max: 60,
+                          onChanged: (value) {
+                            setState(() {
+                              widget.onSizeChanged(value);
+                            });
+                          },
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Content foreeee ${widget.tabName}',
+                            style: TextStyle(fontSize: 24),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            'Selected Tab: ${widget.tabName}',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Selected Tab: ${widget.tabName}',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
     );
   }
 }
