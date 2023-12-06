@@ -17,6 +17,7 @@ class _EditPageState extends State<EditPage> {
   Color bgColor = Colors.grey;
   int tabValue = 0;
   int selectedDesign = 0;
+  bool isHidden = false;
 
   GlobalKey globalKey = GlobalKey();
   @override
@@ -47,7 +48,11 @@ class _EditPageState extends State<EditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             (selectedDesign == 0)
-                ? Design0(_widgetSize, bgColor, (value) {
+                ? Design0(_widgetSize, bgColor, isHidden, (value) {
+                    setState(() {
+                      isHidden = value;
+                    });
+                  }, (value) {
                     setState(() {
                       _widgetSize = value;
                     });
@@ -112,7 +117,11 @@ class _EditPageState extends State<EditPage> {
                     },
                   ),
                 ),
-                TabContent(tabValue, _widgetSize, (value) {
+                TabContent(tabValue, _widgetSize, isHidden, (value) {
+                  setState(() {
+                    isHidden = value;
+                  });
+                }, (value) {
                   setState(() {
                     _widgetSize = value;
                   });
@@ -137,12 +146,20 @@ class _EditPageState extends State<EditPage> {
 class TabContent extends StatefulWidget {
   final int tabName;
   final double widgetSize;
+  final bool isHidden;
+  final ValueChanged<bool> onSwitchChanged;
   final ValueChanged<double> onSizeChanged;
   final ValueChanged<int> onDesignChanged;
   final ValueChanged<Color> onColorChanged;
 
-  const TabContent(this.tabName, this.widgetSize, this.onSizeChanged,
-      this.onDesignChanged, this.onColorChanged,
+  const TabContent(
+      this.tabName,
+      this.widgetSize,
+      this.isHidden,
+      this.onSwitchChanged,
+      this.onSizeChanged,
+      this.onDesignChanged,
+      this.onColorChanged,
       {super.key});
 
   @override
@@ -201,104 +218,123 @@ class _TabContentState extends State<TabContent> {
                 ),
               ),
             ])
-          : (widget.tabName == 2)
+          : (widget.tabName == 1)
               ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MaterialButton(
-                      minWidth: 60,
-                      height: 60,
-                      onPressed: () {
-                        setState(() {
-                          widget.onColorChanged(Colors.lightBlue);
-                        });
-                      },
-                      color: Colors.lightBlue,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text(
-                        "",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20),
-                      ),
+                    Text(
+                      widget.isHidden ? 'Hidden' : 'Visible',
+                      style: TextStyle(fontSize: 20),
                     ),
-                    MaterialButton(
-                      minWidth: 60,
-                      height: 60,
-                      onPressed: () {
+                    const SizedBox(height: 20),
+                    Switch(
+                      value: widget.isHidden,
+                      onChanged: (value) {
                         setState(() {
-                          widget.onColorChanged(Colors.red);
+                          widget.onSwitchChanged(value);
                         });
                       },
-                      color: Colors.red,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text(
-                        "",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20),
-                      ),
                     ),
-                    MaterialButton(
-                      minWidth: 60,
-                      height: 60,
-                      onPressed: () {
-                        setState(() {
-                          widget.onColorChanged(Colors.grey);
-                        });
-                      },
-                      color: Colors.grey,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text(
-                        "",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20),
-                      ),
-                    )
                   ],
                 )
-              : (widget.tabName == 3)
+              : (widget.tabName == 2)
                   ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text('Size: ${widget.widgetSize.toInt()}'),
-                        Slider(
-                          value: widget.widgetSize,
-                          min: 30,
-                          max: 60,
-                          onChanged: (value) {
+                        MaterialButton(
+                          minWidth: 60,
+                          height: 60,
+                          onPressed: () {
                             setState(() {
-                              widget.onSizeChanged(value);
+                              widget.onColorChanged(Colors.lightBlue);
                             });
                           },
+                          color: Colors.lightBlue,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            "",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                          ),
                         ),
+                        MaterialButton(
+                          minWidth: 60,
+                          height: 60,
+                          onPressed: () {
+                            setState(() {
+                              widget.onColorChanged(Colors.red);
+                            });
+                          },
+                          color: Colors.red,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            "",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                          ),
+                        ),
+                        MaterialButton(
+                          minWidth: 60,
+                          height: 60,
+                          onPressed: () {
+                            setState(() {
+                              widget.onColorChanged(Colors.grey);
+                            });
+                          },
+                          color: Colors.grey,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            "",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                          ),
+                        )
                       ],
                     )
-                  : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Content foreeee ${widget.tabName}',
-                            style: TextStyle(fontSize: 24),
+                  : (widget.tabName == 3)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text('Size: ${widget.widgetSize.toInt()}'),
+                            Slider(
+                              value: widget.widgetSize,
+                              min: 30,
+                              max: 60,
+                              onChanged: (value) {
+                                setState(() {
+                                  widget.onSizeChanged(value);
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Content foreeee ${widget.tabName}',
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Selected Tab: ${widget.tabName}',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 20),
-                          Text(
-                            'Selected Tab: ${widget.tabName}',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
     );
   }
 }
