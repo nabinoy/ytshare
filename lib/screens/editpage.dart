@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
@@ -18,7 +19,6 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   double _widgetSize = 45.0;
-  Color _widgetColor = Colors.blue;
   Color bgColor = Colors.grey;
   int tabValue = 0;
   int selectedDesign = 0;
@@ -49,31 +49,55 @@ class _EditPageState extends State<EditPage> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         actions: [
-          GestureDetector(
-            onTap: () async {
-              HapticFeedback.mediumImpact();
-              final tempDir = await getTemporaryDirectory();
+          Container(
+            margin: const EdgeInsets.only(right: 14.0),
+            child: MaterialButton(
+              minWidth: 50,
+              height: 30,
+              onPressed: () async {
+                HapticFeedback.mediumImpact();
+                final tempDir = await getTemporaryDirectory();
 
-              final bytes = await controller.capture();
+                final bytes = await controller.capture();
 
-              final file =
-                  await File('${tempDir.path}/image.png').writeAsBytes(bytes!);
-              await Share.shareFiles([file.path],
-                  text: 'Download our app now!');
-            },
-            child: Text('Share'),
+                final file = await File('${tempDir.path}/youtube-share.png')
+                    .writeAsBytes(bytes!);
+                await Share.shareFiles([file.path], text: 'Watch now!');
+              },
+              color: Colors.lightBlue[800],
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Share",
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Icon(
+                    MdiIcons.share,
+                    color: Colors.white,
+                    size: 18,
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            (selectedDesign == 0)
-                ? WidgetsToImage(
-                    controller: controller,
-                    child: Design0(_widgetSize, bgColor, isHidden, (value) {
+            WidgetsToImage(
+              controller: controller,
+              child: (selectedDesign == 0)
+                  ? Design0(_widgetSize, bgColor, isHidden, (value) {
                       setState(() {
                         isHidden = value;
                       });
@@ -85,28 +109,28 @@ class _EditPageState extends State<EditPage> {
                       setState(() {
                         bgColor = value;
                       });
-                    }),
-                  )
-                : Stack(alignment: Alignment.center, children: [
-                    Container(
-                        decoration: BoxDecoration(
-                          color: bgColor,
-                          borderRadius: BorderRadius.circular(15),
+                    })
+                  : Stack(alignment: Alignment.center, children: [
+                      Container(
+                          decoration: BoxDecoration(
+                            color: bgColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          width: MediaQuery.of(context).size.width * 0.6),
+                      SizedBox(
+                        width: _widgetSize, // Adjust based on the maximum size
+                        height: _widgetSize, // Adjust based on the maximum size
+                        child: Container(
+                          color: Colors.blue,
+                          child: Text(
+                            'Textb',
+                            style: TextStyle(fontSize: _widgetSize * 0.4),
+                          ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.55,
-                        width: MediaQuery.of(context).size.width * 0.6),
-                    Container(
-                      width: _widgetSize, // Adjust based on the maximum size
-                      height: _widgetSize, // Adjust based on the maximum size
-                      child: Container(
-                        color: _widgetColor,
-                        child: Text(
-                          'Textb',
-                          style: TextStyle(fontSize: _widgetSize * 0.4),
-                        ),
-                      ),
-                    )
-                  ]),
+                      )
+                    ]),
+            ),
             Column(
               children: [
                 DefaultTabController(
@@ -130,7 +154,7 @@ class _EditPageState extends State<EditPage> {
                       color: Colors.grey.withOpacity(0.2),
                     ),
                     splashFactory: NoSplash.splashFactory,
-                    tabs: [
+                    tabs: const [
                       Tab(text: 'Design'),
                       Tab(text: 'Selection'),
                       Tab(text: 'Background'),
@@ -215,7 +239,7 @@ class _TabContentState extends State<TabContent> {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
-                child: Text(
+                child: const Text(
                   "Design 1",
                   style: TextStyle(
                       color: Colors.white,
@@ -235,7 +259,7 @@ class _TabContentState extends State<TabContent> {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
-                child: Text(
+                child: const Text(
                   "Design 2",
                   style: TextStyle(
                       color: Colors.white,
@@ -250,7 +274,7 @@ class _TabContentState extends State<TabContent> {
                   children: [
                     Text(
                       widget.isHidden ? 'Hidden' : 'Visible',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     const SizedBox(height: 20),
                     Switch(
@@ -278,7 +302,7 @@ class _TabContentState extends State<TabContent> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          child: Text(
+                          child: const Text(
                             "",
                             style: TextStyle(
                                 color: Colors.white,
@@ -298,7 +322,7 @@ class _TabContentState extends State<TabContent> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          child: Text(
+                          child: const Text(
                             "",
                             style: TextStyle(
                                 color: Colors.white,
@@ -318,7 +342,7 @@ class _TabContentState extends State<TabContent> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          child: Text(
+                          child: const Text(
                             "",
                             style: TextStyle(
                                 color: Colors.white,
@@ -351,12 +375,12 @@ class _TabContentState extends State<TabContent> {
                             children: [
                               Text(
                                 'Content foreeee ${widget.tabName}',
-                                style: TextStyle(fontSize: 24),
+                                style: const TextStyle(fontSize: 24),
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Text(
                                 'Selected Tab: ${widget.tabName}',
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
