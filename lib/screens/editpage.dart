@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:ytshare/widgets/design0.dart';
 
@@ -20,6 +25,8 @@ class _EditPageState extends State<EditPage> {
   bool isHidden = false;
 
   GlobalKey globalKey = GlobalKey();
+  WidgetsToImageController controller = WidgetsToImageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +48,22 @@ class _EditPageState extends State<EditPage> {
           "Edit",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () async {
+              HapticFeedback.mediumImpact();
+              final tempDir = await getTemporaryDirectory();
+
+              final bytes = await controller.capture();
+
+              final file =
+                  await File('${tempDir.path}/image.png').writeAsBytes(bytes!);
+              await Share.shareFiles([file.path],
+                  text: 'Download our app now!');
+            },
+            child: Text('Share'),
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -48,19 +71,22 @@ class _EditPageState extends State<EditPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             (selectedDesign == 0)
-                ? Design0(_widgetSize, bgColor, isHidden, (value) {
-                    setState(() {
-                      isHidden = value;
-                    });
-                  }, (value) {
-                    setState(() {
-                      _widgetSize = value;
-                    });
-                  }, (value) {
-                    setState(() {
-                      bgColor = value;
-                    });
-                  })
+                ? WidgetsToImage(
+                    controller: controller,
+                    child: Design0(_widgetSize, bgColor, isHidden, (value) {
+                      setState(() {
+                        isHidden = value;
+                      });
+                    }, (value) {
+                      setState(() {
+                        _widgetSize = value;
+                      });
+                    }, (value) {
+                      setState(() {
+                        bgColor = value;
+                      });
+                    }),
+                  )
                 : Stack(alignment: Alignment.center, children: [
                     Container(
                         decoration: BoxDecoration(

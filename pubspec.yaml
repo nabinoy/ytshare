@@ -48,6 +48,9 @@ dependencies:
   expandable_text: ^2.3.0
   flutter_snackbar_content: ^0.0.3
   intl: ^0.18.1
+  path_provider: ^2.1.1
+  share_plus: '3.0.4'
+  widgets_to_image: ^0.0.2
 
 dev_dependencies:
   flutter_test:
