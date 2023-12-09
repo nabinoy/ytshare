@@ -158,9 +158,12 @@ class _EditPageState extends State<EditPage> {
                     indicatorPadding: const EdgeInsets.symmetric(vertical: 10),
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
+                    labelColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    unselectedLabelColor:
+                        Theme.of(context).textTheme.bodyLarge?.color,
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(80.0),
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withOpacity(0.3),
                     ),
                     splashFactory: NoSplash.splashFactory,
                     tabs: const [
