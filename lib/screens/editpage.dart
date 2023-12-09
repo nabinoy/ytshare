@@ -28,6 +28,7 @@ class _EditPageState extends State<EditPage> {
   int selectedDesign = 0;
   bool isHidden = false;
   bool isBgImage = true;
+  bool isBWBgImage = false;
 
   GlobalKey globalKey = GlobalKey();
   WidgetsToImageController controller = WidgetsToImageController();
@@ -102,7 +103,13 @@ class _EditPageState extends State<EditPage> {
             WidgetsToImage(
               controller: controller,
               child: (selectedDesign == 0)
-                  ? Design0(_widgetSize, bgColor, isHidden, isBgImage, (value) {
+                  ? Design0(
+                      _widgetSize, bgColor, isHidden, isBgImage, isBWBgImage,
+                      (value) {
+                      setState(() {
+                        isBWBgImage = value;
+                      });
+                    }, (value) {
                       setState(() {
                         isBgImage = value;
                       });
@@ -179,7 +186,13 @@ class _EditPageState extends State<EditPage> {
                     },
                   ),
                 ),
-                TabContent(tabValue, _widgetSize, isHidden, isBgImage, (value) {
+                TabContent(
+                    tabValue, _widgetSize, isHidden, isBgImage, isBWBgImage,
+                    (value) {
+                  setState(() {
+                    isBWBgImage = value;
+                  });
+                }, (value) {
                   setState(() {
                     isBgImage = value;
                   });
@@ -214,6 +227,8 @@ class TabContent extends StatefulWidget {
   final double widgetSize;
   final bool isHidden;
   final bool isBgImage;
+  final bool isBWBgImage;
+  final ValueChanged<bool> onBWBgChanged;
   final ValueChanged<bool> onBgChanged;
   final ValueChanged<bool> onSwitchChanged;
   final ValueChanged<double> onSizeChanged;
@@ -225,6 +240,8 @@ class TabContent extends StatefulWidget {
       this.widgetSize,
       this.isHidden,
       this.isBgImage,
+      this.isBWBgImage,
+      this.onBWBgChanged,
       this.onBgChanged,
       this.onSwitchChanged,
       this.onSizeChanged,
@@ -301,22 +318,15 @@ class _TabContentState extends State<TabContent> {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(14.0),
-                      child: Text(
-                        'Hide likes, views and comments count',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 15),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(14.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Status:  ${widget.isHidden ? 'Hidden' : 'Visible'}',
-                            style: const TextStyle(fontSize: 14),
+                            'Hide stats:  ${widget.isHidden ? 'Hidden' : 'Visible'}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 15),
                           ),
                           const SizedBox(height: 20),
                           Switch(
@@ -334,306 +344,392 @@ class _TabContentState extends State<TabContent> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Turn B&W background:  ${widget.isBWBgImage ? 'No' : 'Yes'}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 15),
+                          ),
+                          const SizedBox(height: 20),
+                          Switch(
+                            activeColor: Colors.lightBlue[700],
+                            activeTrackColor: Colors.grey.shade400,
+                            inactiveThumbColor: Colors.white,
+                            inactiveTrackColor: Colors.grey,
+                            value: widget.isBWBgImage,
+                            onChanged: (value) {
+                              setState(() {
+                                widget.onBWBgChanged(value);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )
               : (widget.tabName == 2)
-                  ? SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  widget.onBgChanged(true);
-                                  isSelected1 = true;
-                                  isSelected2 = false;
-                                  isSelected3 = false;
-                                  isSelected4 = false;
-                                  isSelected5 = false;
-                                  isSelected6 = false;
-                                });
-                              },
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color: isSelected1
-                                        ? Colors.lightBlue[800] as Color
-                                        : Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
+                  ? Column(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.onBgChanged(true);
+                                      isSelected1 = true;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: isSelected1
+                                            ? Colors.lightBlue[800] as Color
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        border: Border.all(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          width: 3.0,
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Stack(
+                                          fit: StackFit.expand,
+                                          alignment: Alignment.center,
+                                          children: [
+                                            CachedNetworkImage(
+                                              filterQuality: FilterQuality.high,
+                                              alignment: Alignment.center,
+                                              imageUrl: youtubeInfo
+                                                  .first
+                                                  .snippet
+                                                  .thumbnails
+                                                  .maxres
+                                                  .url,
+                                              placeholder: (context, url) =>
+                                                  Image.memory(
+                                                kTransparentImage,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              fadeInDuration: const Duration(
+                                                  milliseconds: 200),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            BackdropFilter(
+                                              filter: ImageFilter.blur(
+                                                  tileMode: TileMode.mirror,
+                                                  sigmaX: 10,
+                                                  sigmaY: 10),
+                                              child: Container(
+                                                color: Colors.transparent,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                child: Container(
+                                Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50.0),
                                     border: Border.all(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: isSelected2
+                                          ? Colors.lightBlue[800] as Color
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
                                       width: 3.0,
                                     ),
                                   ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      alignment: Alignment.center,
-                                      children: [
-                                        CachedNetworkImage(
-                                          filterQuality: FilterQuality.high,
-                                          alignment: Alignment.center,
-                                          imageUrl: youtubeInfo.first.snippet
-                                              .thumbnails.maxres.url,
-                                          placeholder: (context, url) =>
-                                              Image.memory(
-                                            kTransparentImage,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          fadeInDuration:
-                                              const Duration(milliseconds: 200),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        BackdropFilter(
-                                          filter: ImageFilter.blur(
-                                              tileMode: TileMode.mirror,
-                                              sigmaX: 10,
-                                              sigmaY: 10),
-                                          child: Container(
-                                            color: Colors.transparent,
-                                          ),
-                                        ),
-                                      ],
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: MaterialButton(
+                                      minWidth: 50,
+                                      height: 50,
+                                      onPressed: () {
+                                        setState(() {
+                                          widget
+                                              .onColorChanged(Colors.lightBlue);
+                                          widget.onBgChanged(false);
+                                          isSelected2 = true;
+                                          isSelected1 = false;
+                                          isSelected3 = false;
+                                          isSelected4 = false;
+                                          isSelected5 = false;
+                                          isSelected6 = false;
+                                        });
+                                      },
+                                      color: Colors.lightBlue,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Text(
+                                        "",
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    border: Border.all(
+                                      color: isSelected3
+                                          ? Colors.lightBlue[800] as Color
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: MaterialButton(
+                                      minWidth: 50,
+                                      height: 50,
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.onColorChanged(Colors.red);
+                                          widget.onBgChanged(false);
+                                          isSelected3 = true;
+                                          isSelected2 = false;
+                                          isSelected1 = false;
+                                          isSelected4 = false;
+                                          isSelected5 = false;
+                                          isSelected6 = false;
+                                        });
+                                      },
+                                      color: Colors.red,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Text(
+                                        "",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    border: Border.all(
+                                      color: isSelected4
+                                          ? Colors.lightBlue[800] as Color
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: MaterialButton(
+                                      minWidth: 50,
+                                      height: 50,
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.onColorChanged(Colors.grey);
+                                          widget.onBgChanged(false);
+                                          isSelected4 = true;
+                                          isSelected1 = false;
+                                          isSelected2 = false;
+                                          isSelected3 = false;
+                                          isSelected5 = false;
+                                          isSelected6 = false;
+                                        });
+                                      },
+                                      color: Colors.grey,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Text(
+                                        "",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    border: Border.all(
+                                      color: isSelected5
+                                          ? Colors.lightBlue[800] as Color
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: MaterialButton(
+                                      minWidth: 50,
+                                      height: 50,
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.onColorChanged(Colors.green);
+                                          widget.onBgChanged(false);
+                                          isSelected5 = true;
+                                          isSelected1 = false;
+                                          isSelected2 = false;
+                                          isSelected3 = false;
+                                          isSelected4 = false;
+                                          isSelected6 = false;
+                                        });
+                                      },
+                                      color: Colors.green,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Text(
+                                        "",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    border: Border.all(
+                                      color: isSelected6
+                                          ? Colors.lightBlue[800] as Color
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 3.0,
+                                      ),
+                                    ),
+                                    child: MaterialButton(
+                                      minWidth: 50,
+                                      height: 50,
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.onColorChanged(Colors.pink);
+                                          widget.onBgChanged(false);
+                                          isSelected6 = true;
+                                          isSelected1 = false;
+                                          isSelected2 = false;
+                                          isSelected3 = false;
+                                          isSelected4 = false;
+                                          isSelected5 = false;
+                                        });
+                                      },
+                                      color: Colors.pink,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: const Text(
+                                        "",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                  color: isSelected2
-                                      ? Colors.lightBlue[800] as Color
-                                      : Theme.of(context).colorScheme.primary,
-                                  width: 3.0,
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: MaterialButton(
-                                  minWidth: 50,
-                                  height: 50,
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.onColorChanged(Colors.lightBlue);
-                                      widget.onBgChanged(false);
-                                      isSelected2 = true;
-                                      isSelected1 = false;
-                                      isSelected3 = false;
-                                      isSelected4 = false;
-                                      isSelected5 = false;
-                                      isSelected6 = false;
-                                    });
-                                  },
-                                  color: Colors.lightBlue,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                  color: isSelected3
-                                      ? Colors.lightBlue[800] as Color
-                                      : Theme.of(context).colorScheme.primary,
-                                  width: 3.0,
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: MaterialButton(
-                                  minWidth: 50,
-                                  height: 50,
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.onColorChanged(Colors.red);
-                                      widget.onBgChanged(false);
-                                      isSelected3 = true;
-                                      isSelected2 = false;
-                                      isSelected1 = false;
-                                      isSelected4 = false;
-                                      isSelected5 = false;
-                                      isSelected6 = false;
-                                    });
-                                  },
-                                  color: Colors.red,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                  color: isSelected4
-                                      ? Colors.lightBlue[800] as Color
-                                      : Theme.of(context).colorScheme.primary,
-                                  width: 3.0,
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: MaterialButton(
-                                  minWidth: 50,
-                                  height: 50,
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.onColorChanged(Colors.grey);
-                                      widget.onBgChanged(false);
-                                      isSelected4 = true;
-                                      isSelected1 = false;
-                                      isSelected2 = false;
-                                      isSelected3 = false;
-                                      isSelected5 = false;
-                                      isSelected6 = false;
-                                    });
-                                  },
-                                  color: Colors.grey,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                  color: isSelected5
-                                      ? Colors.lightBlue[800] as Color
-                                      : Theme.of(context).colorScheme.primary,
-                                  width: 3.0,
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: MaterialButton(
-                                  minWidth: 50,
-                                  height: 50,
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.onColorChanged(Colors.green);
-                                      widget.onBgChanged(false);
-                                      isSelected5 = true;
-                                      isSelected1 = false;
-                                      isSelected2 = false;
-                                      isSelected3 = false;
-                                      isSelected4 = false;
-                                      isSelected6 = false;
-                                    });
-                                  },
-                                  color: Colors.green,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                  color: isSelected6
-                                      ? Colors.lightBlue[800] as Color
-                                      : Theme.of(context).colorScheme.primary,
-                                  width: 3.0,
-                                ),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    width: 3.0,
-                                  ),
-                                ),
-                                child: MaterialButton(
-                                  minWidth: 50,
-                                  height: 50,
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.onColorChanged(Colors.pink);
-                                      widget.onBgChanged(false);
-                                      isSelected6 = true;
-                                      isSelected1 = false;
-                                      isSelected2 = false;
-                                      isSelected3 = false;
-                                      isSelected4 = false;
-                                      isSelected5 = false;
-                                    });
-                                  },
-                                  color: Colors.pink,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Text(
-                                    "",
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                        (isSelected1 == true)
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text('Size: ${widget.widgetSize.toInt()}'),
+                                  Slider(
+                                    value: widget.widgetSize,
+                                    min: 30,
+                                    max: 60,
+                                    thumbColor: Colors.lightBlue[600],
+                                    activeColor: Colors.lightBlue[600],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        widget.onSizeChanged(value);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )
+                            : Visibility(
+                                visible: isSelected1,
+                                child: const SizedBox(
+                                  height: 0,
+                                  width: 0,
+                                ),
+                              )
+                      ],
                     )
                   : (widget.tabName == 3)
                       ? Row(

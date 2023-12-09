@@ -11,6 +11,8 @@ class Design0 extends StatefulWidget {
   final Color bgColor;
   final bool isHidden;
   final bool isBgImage;
+  final bool isBWBgImage;
+  final ValueChanged<bool> onBWBgChanged;
   final ValueChanged<bool> onBgChanged;
   final ValueChanged<double> onSizeChanged;
   final ValueChanged<Color> onColorChanged;
@@ -21,6 +23,8 @@ class Design0 extends StatefulWidget {
       this.bgColor,
       this.isHidden,
       this.isBgImage,
+      this.isBWBgImage,
+      this.onBWBgChanged,
       this.onBgChanged,
       this.onSwitchChanged,
       this.onSizeChanged,
@@ -92,16 +96,26 @@ class _Design0State extends State<Design0> {
                   fit: StackFit.expand,
                   alignment: Alignment.center,
                   children: [
-                    CachedNetworkImage(
-                      filterQuality: FilterQuality.high,
-                      alignment: Alignment.center,
-                      imageUrl: youtubeInfo.first.snippet.thumbnails.maxres.url,
-                      placeholder: (context, url) => Image.memory(
-                        kTransparentImage,
+                    ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        (widget.isBWBgImage == true)
+                            ? Colors.black
+                            : Colors
+                                .transparent,
+                        BlendMode.saturation,
+                      ),
+                      child: CachedNetworkImage(
+                        filterQuality: FilterQuality.high,
+                        alignment: Alignment.center,
+                        imageUrl:
+                            youtubeInfo.first.snippet.thumbnails.maxres.url,
+                        placeholder: (context, url) => Image.memory(
+                          kTransparentImage,
+                          fit: BoxFit.cover,
+                        ),
+                        fadeInDuration: const Duration(milliseconds: 200),
                         fit: BoxFit.cover,
                       ),
-                      fadeInDuration: const Duration(milliseconds: 200),
-                      fit: BoxFit.cover,
                     ),
                     BackdropFilter(
                       filter: ImageFilter.blur(
