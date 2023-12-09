@@ -22,6 +22,8 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
+  bool isLoading = false;
+
   double _widgetSize = 45.0;
   Color bgColor = Colors.grey;
   int tabValue = 0;
@@ -36,76 +38,172 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        leading: IconButton(
-          onPressed: () {
-            HapticFeedback.mediumImpact();
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-          ),
-        ),
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          "Edit",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 14.0),
-            child: MaterialButton(
-              minWidth: 50,
-              height: 30,
-              onPressed: () async {
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            leading: IconButton(
+              onPressed: () {
                 HapticFeedback.mediumImpact();
-                final tempDir = await getTemporaryDirectory();
-
-                final bytes = await controller.capture();
-
-                final file = await File('${tempDir.path}/youtube-share.png')
-                    .writeAsBytes(bytes!);
-                await Share.shareFiles([file.path], text: 'Watch now!');
+                Navigator.pop(context);
               },
-              color: Colors.lightBlue[800],
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Share",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Icon(
-                    MdiIcons.share,
-                    color: Colors.white,
-                    size: 18,
-                  )
-                ],
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 20,
               ),
             ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            WidgetsToImage(
-              controller: controller,
-              child: (selectedDesign == 0)
-                  ? Design0(_widgetSize, bgColor, isHidden, isBgImage,
-                      isBWBgImage, blurValue, (value) {
+            elevation: 0,
+            centerTitle: true,
+            title: const Text(
+              "Edit",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 14.0),
+                child: MaterialButton(
+                  minWidth: 50,
+                  height: 30,
+                  onPressed: () async {
+                    HapticFeedback.mediumImpact();
+                    setState(() {
+                      isLoading = true;
+                    });
+                    final tempDir = await getTemporaryDirectory();
+
+                    final bytes = await controller.capture();
+
+                    final file = await File('${tempDir.path}/youtube-share.png')
+                        .writeAsBytes(bytes!);
+                    await Share.shareFiles([file.path], text: 'Watch now!');
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                  color: Colors.lightBlue[800],
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Share",
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Icon(
+                        MdiIcons.share,
+                        color: Colors.white,
+                        size: 18,
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                WidgetsToImage(
+                  controller: controller,
+                  child: (selectedDesign == 0)
+                      ? Design0(_widgetSize, bgColor, isHidden, isBgImage,
+                          isBWBgImage, blurValue, (value) {
+                          setState(() {
+                            blurValue = value;
+                          });
+                        }, (value) {
+                          setState(() {
+                            isBWBgImage = value;
+                          });
+                        }, (value) {
+                          setState(() {
+                            isBgImage = value;
+                          });
+                        }, (value) {
+                          setState(() {
+                            isHidden = value;
+                          });
+                        }, (value) {
+                          setState(() {
+                            _widgetSize = value;
+                          });
+                        }, (value) {
+                          setState(() {
+                            bgColor = value;
+                          });
+                        })
+                      : Stack(alignment: Alignment.center, children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                color: bgColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              height: MediaQuery.of(context).size.height * 0.55,
+                              width: MediaQuery.of(context).size.width * 0.6),
+                          SizedBox(
+                            width: _widgetSize,
+                            height: _widgetSize,
+                            child: Container(
+                              color: Colors.blue,
+                              child: Text(
+                                'Textb',
+                                style: TextStyle(fontSize: _widgetSize * 0.4),
+                              ),
+                            ),
+                          )
+                        ]),
+                ),
+                Column(
+                  children: [
+                    DefaultTabController(
+                      length: 4,
+                      child: TabBar(
+                        tabAlignment: TabAlignment.center,
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: Global.fontRegular),
+                        unselectedLabelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.w100,
+                            fontFamily: Global.fontRegular),
+                        physics: const BouncingScrollPhysics(),
+                        isScrollable: true,
+                        indicatorPadding:
+                            const EdgeInsets.symmetric(vertical: 10),
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        dividerHeight: 0,
+                        labelColor:
+                            Theme.of(context).textTheme.bodyLarge?.color,
+                        unselectedLabelColor:
+                            Theme.of(context).textTheme.bodyLarge?.color,
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80.0),
+                          color: Colors.grey.withOpacity(0.3),
+                        ),
+                        splashFactory: NoSplash.splashFactory,
+                        tabs: const [
+                          Tab(text: 'Design'),
+                          Tab(text: 'Tweaks'),
+                          Tab(text: 'Background'),
+                          Tab(text: 'Size'),
+                        ],
+                        onTap: (value) {
+                          setState(() {
+                            tabValue = value;
+                          });
+                        },
+                      ),
+                    ),
+                    TabContent(tabValue, _widgetSize, isHidden, isBgImage,
+                        isBWBgImage, blurValue, (value) {
                       setState(() {
                         blurValue = value;
                       });
@@ -127,104 +225,30 @@ class _EditPageState extends State<EditPage> {
                       });
                     }, (value) {
                       setState(() {
+                        selectedDesign = value;
+                      });
+                    }, (value) {
+                      setState(() {
                         bgColor = value;
                       });
-                    })
-                  : Stack(alignment: Alignment.center, children: [
-                      Container(
-                          decoration: BoxDecoration(
-                            color: bgColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          height: MediaQuery.of(context).size.height * 0.55,
-                          width: MediaQuery.of(context).size.width * 0.6),
-                      SizedBox(
-                        width: _widgetSize,
-                        height: _widgetSize,
-                        child: Container(
-                          color: Colors.blue,
-                          child: Text(
-                            'Textb',
-                            style: TextStyle(fontSize: _widgetSize * 0.4),
-                          ),
-                        ),
-                      )
-                    ]),
-            ),
-            Column(
-              children: [
-                DefaultTabController(
-                  length: 4,
-                  child: TabBar(
-                    tabAlignment: TabAlignment.center,
-                    labelStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: Global.fontRegular),
-                    unselectedLabelStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.w100,
-                        fontFamily: Global.fontRegular),
-                    physics: const BouncingScrollPhysics(),
-                    isScrollable: true,
-                    indicatorPadding: const EdgeInsets.symmetric(vertical: 10),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    dividerHeight: 0,
-                    labelColor: Theme.of(context).textTheme.bodyLarge?.color,
-                    unselectedLabelColor:
-                        Theme.of(context).textTheme.bodyLarge?.color,
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(80.0),
-                      color: Colors.grey.withOpacity(0.3),
-                    ),
-                    splashFactory: NoSplash.splashFactory,
-                    tabs: const [
-                      Tab(text: 'Design'),
-                      Tab(text: 'Tweaks'),
-                      Tab(text: 'Background'),
-                      Tab(text: 'Size'),
-                    ],
-                    onTap: (value) {
-                      setState(() {
-                        tabValue = value;
-                      });
-                    },
-                  ),
-                ),
-                TabContent(tabValue, _widgetSize, isHidden, isBgImage,
-                    isBWBgImage, blurValue, (value) {
-                  setState(() {
-                    blurValue = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    isBWBgImage = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    isBgImage = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    isHidden = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    _widgetSize = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    selectedDesign = value;
-                  });
-                }, (value) {
-                  setState(() {
-                    bgColor = value;
-                  });
-                }),
+                    }),
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
-      ),
+        if (isLoading)
+          Container(
+            color: Colors.black.withOpacity(0.7),
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeCap: StrokeCap.round,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

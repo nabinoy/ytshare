@@ -104,8 +104,7 @@ class _Design0State extends State<Design0> {
                       colorFilter: ColorFilter.mode(
                         (widget.isBWBgImage == true)
                             ? Colors.black
-                            : Colors
-                                .transparent,
+                            : Colors.transparent,
                         BlendMode.saturation,
                       ),
                       child: CachedNetworkImage(
@@ -123,7 +122,9 @@ class _Design0State extends State<Design0> {
                     ),
                     BackdropFilter(
                       filter: ImageFilter.blur(
-                          tileMode: TileMode.mirror, sigmaX: widget.blurValue, sigmaY: widget.blurValue),
+                          tileMode: TileMode.mirror,
+                          sigmaX: widget.blurValue,
+                          sigmaY: widget.blurValue),
                       child: Container(
                         color: Colors.transparent,
                       ),
@@ -253,21 +254,10 @@ class _Design0State extends State<Design0> {
                                 fontSize: widget.widgetSize * 0.2,
                               ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.thumbUpOutline,
-                                  size: widget.widgetSize * 0.13,
-                                ),
-                                SizedBox(
-                                  width: widget.widgetSize * 0.06,
-                                ),
-                                Text(
-                                  'Likes',
-                                  style: TextStyle(
-                                      fontSize: widget.widgetSize * 0.13),
-                                ),
-                              ],
+                            Text(
+                              'Likes',
+                              style:
+                                  TextStyle(fontSize: widget.widgetSize * 0.13),
                             ),
                           ],
                         ),
@@ -284,21 +274,10 @@ class _Design0State extends State<Design0> {
                                 fontSize: widget.widgetSize * 0.2,
                               ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.playOutline,
-                                  size: widget.widgetSize * 0.16,
-                                ),
-                                SizedBox(
-                                  width: widget.widgetSize * 0.02,
-                                ),
-                                Text(
-                                  'Views',
-                                  style: TextStyle(
-                                      fontSize: widget.widgetSize * 0.13),
-                                ),
-                              ],
+                            Text(
+                              'Views',
+                              style:
+                                  TextStyle(fontSize: widget.widgetSize * 0.13),
                             ),
                           ],
                         ),
@@ -315,21 +294,10 @@ class _Design0State extends State<Design0> {
                                 fontSize: widget.widgetSize * 0.2,
                               ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  MdiIcons.commentOutline,
-                                  size: widget.widgetSize * 0.13,
-                                ),
-                                SizedBox(
-                                  width: widget.widgetSize * 0.06,
-                                ),
-                                Text(
-                                  'Comments',
-                                  style: TextStyle(
-                                      fontSize: widget.widgetSize * 0.13),
-                                ),
-                              ],
+                            Text(
+                              'Comments',
+                              style:
+                                  TextStyle(fontSize: widget.widgetSize * 0.13),
                             ),
                           ],
                         ),
@@ -339,8 +307,17 @@ class _Design0State extends State<Design0> {
             SizedBox(
               height: widget.widgetSize * 0.12,
             ),
-            Image.asset('assets/images/Youtube-logo.png',
-                width: widget.widgetSize * 0.8, height: widget.widgetSize * 0.3)
+            Opacity(
+              opacity: 0.8,
+              child:
+                  (Theme.of(context).colorScheme.brightness == Brightness.light)
+                      ? Image.asset('assets/images/Youtube-logo-dark.png',
+                          width: widget.widgetSize * 0.8,
+                          height: widget.widgetSize * 0.3)
+                      : Image.asset('assets/images/Youtube-logo-light.png',
+                          width: widget.widgetSize * 0.8,
+                          height: widget.widgetSize * 0.3),
+            )
           ],
         ),
       ),
