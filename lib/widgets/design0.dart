@@ -12,6 +12,8 @@ class Design0 extends StatefulWidget {
   final bool isHidden;
   final bool isBgImage;
   final bool isBWBgImage;
+  final double blurValue;
+  final ValueChanged<double> onBlurValueChanged;
   final ValueChanged<bool> onBWBgChanged;
   final ValueChanged<bool> onBgChanged;
   final ValueChanged<double> onSizeChanged;
@@ -24,6 +26,8 @@ class Design0 extends StatefulWidget {
       this.isHidden,
       this.isBgImage,
       this.isBWBgImage,
+      this.blurValue,
+      this.onBlurValueChanged,
       this.onBWBgChanged,
       this.onBgChanged,
       this.onSwitchChanged,
@@ -119,7 +123,7 @@ class _Design0State extends State<Design0> {
                     ),
                     BackdropFilter(
                       filter: ImageFilter.blur(
-                          tileMode: TileMode.mirror, sigmaX: 10, sigmaY: 10),
+                          tileMode: TileMode.mirror, sigmaX: widget.blurValue, sigmaY: widget.blurValue),
                       child: Container(
                         color: Colors.transparent,
                       ),
