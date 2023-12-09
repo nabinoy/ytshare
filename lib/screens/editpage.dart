@@ -23,6 +23,7 @@ class _EditPageState extends State<EditPage> {
   int tabValue = 0;
   int selectedDesign = 0;
   bool isHidden = false;
+  bool isBgImage = true;
 
   GlobalKey globalKey = GlobalKey();
   WidgetsToImageController controller = WidgetsToImageController();
@@ -97,7 +98,11 @@ class _EditPageState extends State<EditPage> {
             WidgetsToImage(
               controller: controller,
               child: (selectedDesign == 0)
-                  ? Design0(_widgetSize, bgColor, isHidden, (value) {
+                  ? Design0(_widgetSize, bgColor, isHidden, isBgImage, (value) {
+                      setState(() {
+                        isBgImage = value;
+                      });
+                    }, (value) {
                       setState(() {
                         isHidden = value;
                       });
@@ -119,8 +124,8 @@ class _EditPageState extends State<EditPage> {
                           height: MediaQuery.of(context).size.height * 0.55,
                           width: MediaQuery.of(context).size.width * 0.6),
                       SizedBox(
-                        width: _widgetSize, // Adjust based on the maximum size
-                        height: _widgetSize, // Adjust based on the maximum size
+                        width: _widgetSize,
+                        height: _widgetSize,
                         child: Container(
                           color: Colors.blue,
                           child: Text(
@@ -167,7 +172,11 @@ class _EditPageState extends State<EditPage> {
                     },
                   ),
                 ),
-                TabContent(tabValue, _widgetSize, isHidden, (value) {
+                TabContent(tabValue, _widgetSize, isHidden, isBgImage, (value) {
+                  setState(() {
+                    isBgImage = value;
+                  });
+                }, (value) {
                   setState(() {
                     isHidden = value;
                   });
@@ -197,6 +206,8 @@ class TabContent extends StatefulWidget {
   final int tabName;
   final double widgetSize;
   final bool isHidden;
+  final bool isBgImage;
+  final ValueChanged<bool> onBgChanged;
   final ValueChanged<bool> onSwitchChanged;
   final ValueChanged<double> onSizeChanged;
   final ValueChanged<int> onDesignChanged;
@@ -206,6 +217,8 @@ class TabContent extends StatefulWidget {
       this.tabName,
       this.widgetSize,
       this.isHidden,
+      this.isBgImage,
+      this.onBgChanged,
       this.onSwitchChanged,
       this.onSizeChanged,
       this.onDesignChanged,
@@ -295,7 +308,7 @@ class _TabContentState extends State<TabContent> {
                           height: 60,
                           onPressed: () {
                             setState(() {
-                              widget.onColorChanged(Colors.lightBlue);
+                              widget.onBgChanged(true);
                             });
                           },
                           color: Colors.lightBlue,
@@ -304,10 +317,23 @@ class _TabContentState extends State<TabContent> {
                               borderRadius: BorderRadius.circular(50)),
                           child: const Text(
                             "",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20),
+                          ),
+                        ),
+                        MaterialButton(
+                          minWidth: 60,
+                          height: 60,
+                          onPressed: () {
+                            setState(() {
+                              widget.onColorChanged(Colors.lightBlue);
+                              widget.onBgChanged(false);
+                            });
+                          },
+                          color: Colors.lightBlue,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          child: const Text(
+                            "",
                           ),
                         ),
                         MaterialButton(
@@ -316,6 +342,7 @@ class _TabContentState extends State<TabContent> {
                           onPressed: () {
                             setState(() {
                               widget.onColorChanged(Colors.red);
+                              widget.onBgChanged(false);
                             });
                           },
                           color: Colors.red,
@@ -324,10 +351,6 @@ class _TabContentState extends State<TabContent> {
                               borderRadius: BorderRadius.circular(50)),
                           child: const Text(
                             "",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20),
                           ),
                         ),
                         MaterialButton(
@@ -336,6 +359,7 @@ class _TabContentState extends State<TabContent> {
                           onPressed: () {
                             setState(() {
                               widget.onColorChanged(Colors.grey);
+                              widget.onBgChanged(false);
                             });
                           },
                           color: Colors.grey,

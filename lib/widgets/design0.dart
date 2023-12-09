@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -8,12 +10,21 @@ class Design0 extends StatefulWidget {
   final double widgetSize;
   final Color bgColor;
   final bool isHidden;
+  final bool isBgImage;
+  final ValueChanged<bool> onBgChanged;
   final ValueChanged<double> onSizeChanged;
   final ValueChanged<Color> onColorChanged;
   final ValueChanged<bool> onSwitchChanged;
 
-  const Design0(this.widgetSize, this.bgColor, this.isHidden,
-      this.onSwitchChanged, this.onSizeChanged, this.onColorChanged,
+  const Design0(
+      this.widgetSize,
+      this.bgColor,
+      this.isHidden,
+      this.isBgImage,
+      this.onBgChanged,
+      this.onSwitchChanged,
+      this.onSizeChanged,
+      this.onColorChanged,
       {super.key});
 
   @override
@@ -71,13 +82,45 @@ class _Design0State extends State<Design0> {
     List<YouTubeModel> youtubeInfo =
         ModalRoute.of(context)!.settings.arguments as List<YouTubeModel>;
     return Stack(alignment: Alignment.center, children: [
-      Container(
-          decoration: BoxDecoration(
-            color: widget.bgColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          height: MediaQuery.of(context).size.height * 0.55,
-          width: MediaQuery.of(context).size.width * 0.6),
+      (widget.isBgImage == true)
+          ? SizedBox(
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.center,
+                  children: [
+                    CachedNetworkImage(
+                      filterQuality: FilterQuality.high,
+                      alignment: Alignment.center,
+                      imageUrl: youtubeInfo.first.snippet.thumbnails.maxres.url,
+                      placeholder: (context, url) => Image.memory(
+                        kTransparentImage,
+                        fit: BoxFit.cover,
+                      ),
+                      fadeInDuration: const Duration(milliseconds: 200),
+                      fit: BoxFit.cover,
+                    ),
+                    BackdropFilter(
+                      filter: ImageFilter.blur(
+                          tileMode: TileMode.mirror, sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Container(
+              decoration: BoxDecoration(
+                color: widget.bgColor,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: MediaQuery.of(context).size.width * 0.6),
       Container(
         width: widget.widgetSize * 3.5,
         padding: EdgeInsets.all(widget.widgetSize * 0.1),
