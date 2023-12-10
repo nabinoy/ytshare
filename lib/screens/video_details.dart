@@ -360,7 +360,7 @@ class _DetailsState extends State<VideoDetails> {
                       expandText: 'show more',
                       collapseText: 'show less',
                       maxLines: 6,
-                      linkColor: Colors.lightBlue[800],
+                      linkColor: Colors.lightBlue[600],
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ],

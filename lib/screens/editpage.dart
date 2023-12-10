@@ -289,6 +289,9 @@ class TabContent extends StatefulWidget {
 }
 
 class _TabContentState extends State<TabContent> {
+  bool isDesign1 = true;
+  bool isDesign2 = false;
+
   bool isSelected1 = true;
   bool isSelected2 = false;
   bool isSelected3 = false;
@@ -302,53 +305,70 @@ class _TabContentState extends State<TabContent> {
         ModalRoute.of(context)!.settings.arguments as List<YouTubeModel>;
     return Container(
       height: MediaQuery.of(context).size.height * 0.2,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(15),
       ),
       child: ((widget.tabName == 0))
-          ? Row(children: [
-              MaterialButton(
-                minWidth: 60,
-                height: 60,
-                onPressed: () {
-                  setState(() {
-                    widget.onDesignChanged(0);
-                  });
-                },
-                color: Colors.lightBlue[800],
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: const Text(
-                  "Design 1",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                ),
+          ? SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Row(children: [
+                  Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            widget.onDesignChanged(0);
+                            isDesign1 = true;
+                            isDesign2 = false;
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.14,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: isSelected1
+                                  ? Colors.lightBlue[800] as Color
+                                  : Theme.of(context).colorScheme.primary,
+                              width: 3.0,
+                            ),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 3.0,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/images/design1.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      const Text(
+                        'Design 1',
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  ),
+                ]),
               ),
-              MaterialButton(
-                minWidth: 60,
-                height: 60,
-                onPressed: () {
-                  setState(() {
-                    widget.onDesignChanged(1);
-                  });
-                },
-                color: Colors.lightBlue[800],
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: const Text(
-                  "Design 2",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                ),
-              ),
-            ])
+            )
           : (widget.tabName == 1)
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
