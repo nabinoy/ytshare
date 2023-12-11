@@ -298,6 +298,15 @@ class _TabContentState extends State<TabContent> {
   bool isSelected4 = false;
   bool isSelected5 = false;
   bool isSelected6 = false;
+  bool isSelected7 = false;
+  bool isSelected8 = false;
+  bool isSelected9 = false;
+  bool isSelected10 = false;
+  bool isSelected11 = false;
+  bool isSelected12 = false;
+  bool isSelected13 = false;
+  bool isSelected14 = false;
+  bool isSelected15 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -460,6 +469,15 @@ class _TabContentState extends State<TabContent> {
                                   isSelected4 = false;
                                   isSelected5 = false;
                                   isSelected6 = false;
+                                  isSelected7 = false;
+                                  isSelected8 = false;
+                                  isSelected9 = false;
+                                  isSelected10 = false;
+                                  isSelected11 = false;
+                                  isSelected12 = false;
+                                  isSelected13 = false;
+                                  isSelected14 = false;
+                                  isSelected15 = false;
                                 });
                               },
                               child: Container(
@@ -542,17 +560,27 @@ class _TabContentState extends State<TabContent> {
                                   height: 50,
                                   onPressed: () {
                                     setState(() {
-                                      widget.onColorChanged(Colors.lightBlue);
+                                      widget.onColorChanged(
+                                          Colors.lightBlue[400] as Color);
                                       widget.onBgChanged(false);
-                                      isSelected2 = true;
                                       isSelected1 = false;
+                                      isSelected2 = true;
                                       isSelected3 = false;
                                       isSelected4 = false;
                                       isSelected5 = false;
                                       isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
                                     });
                                   },
-                                  color: Colors.lightBlue,
+                                  color: Colors.lightBlue[400],
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
@@ -586,17 +614,27 @@ class _TabContentState extends State<TabContent> {
                                   height: 50,
                                   onPressed: () {
                                     setState(() {
-                                      widget.onColorChanged(Colors.red);
+                                      widget.onColorChanged(
+                                          Colors.red[400] as Color);
                                       widget.onBgChanged(false);
-                                      isSelected3 = true;
-                                      isSelected2 = false;
                                       isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = true;
                                       isSelected4 = false;
                                       isSelected5 = false;
                                       isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
                                     });
                                   },
-                                  color: Colors.red,
+                                  color: Colors.red[400],
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
@@ -630,17 +668,27 @@ class _TabContentState extends State<TabContent> {
                                   height: 50,
                                   onPressed: () {
                                     setState(() {
-                                      widget.onColorChanged(Colors.grey);
+                                      widget.onColorChanged(
+                                          Colors.grey[400] as Color);
                                       widget.onBgChanged(false);
-                                      isSelected4 = true;
                                       isSelected1 = false;
                                       isSelected2 = false;
                                       isSelected3 = false;
+                                      isSelected4 = true;
                                       isSelected5 = false;
                                       isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
                                     });
                                   },
-                                  color: Colors.grey,
+                                  color: Colors.grey[400],
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
@@ -674,17 +722,27 @@ class _TabContentState extends State<TabContent> {
                                   height: 50,
                                   onPressed: () {
                                     setState(() {
-                                      widget.onColorChanged(Colors.green);
+                                      widget.onColorChanged(
+                                          Colors.green[400] as Color);
                                       widget.onBgChanged(false);
-                                      isSelected5 = true;
                                       isSelected1 = false;
                                       isSelected2 = false;
                                       isSelected3 = false;
                                       isSelected4 = false;
+                                      isSelected5 = true;
                                       isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
                                     });
                                   },
-                                  color: Colors.green,
+                                  color: Colors.green[400],
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
@@ -718,17 +776,510 @@ class _TabContentState extends State<TabContent> {
                                   height: 50,
                                   onPressed: () {
                                     setState(() {
-                                      widget.onColorChanged(Colors.pink);
+                                      widget.onColorChanged(
+                                          Colors.pink[400] as Color);
                                       widget.onBgChanged(false);
-                                      isSelected6 = true;
                                       isSelected1 = false;
                                       isSelected2 = false;
                                       isSelected3 = false;
                                       isSelected4 = false;
                                       isSelected5 = false;
+                                      isSelected6 = true;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
                                     });
                                   },
-                                  color: Colors.pink,
+                                  color: Colors.pink[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected7
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.deepOrange[400] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = true;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.deepOrange[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected8
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(Colors.amberAccent);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = true;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.amberAccent,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected9
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.lightGreen[400] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = true;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.lightGreen[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected10
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.indigo[400] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = true;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.indigo[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected11
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.purple[400] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = true;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.purple[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected12
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(Colors.brown);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = true;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.brown,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected13
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.deepPurple[400] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = true;
+                                      isSelected14 = false;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.deepPurple[400],
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected14
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(Colors.teal);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = true;
+                                      isSelected15 = false;
+                                    });
+                                  },
+                                  color: Colors.teal,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text(
+                                    "",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                border: Border.all(
+                                  color: isSelected15
+                                      ? Colors.lightBlue[800] as Color
+                                      : Theme.of(context).colorScheme.primary,
+                                  width: 3.0,
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50.0),
+                                  border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    width: 3.0,
+                                  ),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: 50,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.onColorChanged(
+                                          Colors.grey[850] as Color);
+                                      widget.onBgChanged(false);
+                                      isSelected1 = false;
+                                      isSelected2 = false;
+                                      isSelected3 = false;
+                                      isSelected4 = false;
+                                      isSelected5 = false;
+                                      isSelected6 = false;
+                                      isSelected7 = false;
+                                      isSelected8 = false;
+                                      isSelected9 = false;
+                                      isSelected10 = false;
+                                      isSelected11 = false;
+                                      isSelected12 = false;
+                                      isSelected13 = false;
+                                      isSelected14 = false;
+                                      isSelected15 = true;
+                                    });
+                                  },
+                                  color: Colors.grey[850],
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
