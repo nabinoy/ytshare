@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_snackbar_content/flutter_snackbar_content.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ytshare/model/youtube_data_model.dart';
@@ -88,154 +89,155 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Column(
-                    children: <Widget>[
-                      const Text(
-                        "Random text Lorem ipsum",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 14,
-                      ),
-                      Text(
-                        "Login to your account with some dummy text lorem ipsum dolor.",
-                        style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                      )
-                    ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.all(40),
+                    child: Lottie.asset(
+                      'assets/lottie/homepage-animation.json',
+                      animate: true,
+                      frameRate: FrameRate.max,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 24),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter YouTube URL';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              hintText: 'Enter YouTube URL',
-                              hintStyle: const TextStyle(fontSize: 16),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                borderSide: const BorderSide(
-                                  width: 3,
-                                  color: Colors.black,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                              filled: true,
-                              contentPadding: const EdgeInsets.all(16),
+                  const Text(
+                    "Welcome to YT Share",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  const Text(
+                    "Share YouTube video links with a personalized UI across your favorite social media platforms.",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter YouTube URL';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Enter YouTube URL',
+                          hintStyle: const TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: const BorderSide(
+                              width: 3,
+                              color: Colors.black,
+                              style: BorderStyle.solid,
                             ),
-                            onChanged: (value) => setState(() {
-                              url = value;
-                            }),
                           ),
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
                         ),
-                      ],
+                        onChanged: (value) => setState(() {
+                          url = value;
+                        }),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      height: 60,
-                      onPressed: () {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
 
-                        if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      String youtubeVideoId = extractVideoId(url);
+
+                      getVideoInfo(youtubeVideoId).then((value) {
+                        yt = value;
+                        if (yt.isEmpty) {
                           setState(() {
-                            isLoading = true;
+                            isLoading = false;
                           });
-
-                          String youtubeVideoId = extractVideoId(url);
-
-                          getVideoInfo(youtubeVideoId).then((value) {
-                            yt = value;
-                            if (yt.isEmpty) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              const snackBar = SnackBar(
-                                elevation: 0,
-                                behavior: SnackBarBehavior.floating,
-                                backgroundColor: Colors.transparent,
-                                content: FlutterSnackbarContent(
-                                  message: 'Please enter a valid YouTube URL!',
-                                  contentType: ContentType.failure,
-                                ),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                ..hideCurrentSnackBar()
-                                ..showSnackBar(snackBar);
-                            } else {
-                              setState(() {
-                                isLoading = false;
-                              });
-
-                              Navigator.pushNamed(
-                                  context, VideoDetails.routeName,
-                                  arguments: yt);
-                            }
-                          });
-                        }
-                      },
-                      color: Colors.lightBlue[800],
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeCap: StrokeCap.round,
-                            )
-                          : const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Next",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Icon(
-                                  Icons.arrow_circle_right_outlined,
-                                  color: Colors.white,
-                                  size: 28,
-                                )
-                              ],
+                          const snackBar = SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: FlutterSnackbarContent(
+                              message: 'Please enter a valid YouTube URL!',
+                              contentType: ContentType.failure,
                             ),
-                    ),
-                  ),
+                          );
+
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
+
+                          Navigator.pushNamed(context, VideoDetails.routeName,
+                              arguments: yt);
+                        }
+                      });
+                    }
+                  },
+                  color: Colors.lightBlue[800],
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  child: isLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeCap: StrokeCap.round,
+                        )
+                      : const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Next",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20),
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Icon(
+                              Icons.arrow_circle_right_outlined,
+                              color: Colors.white,
+                              size: 28,
+                            )
+                          ],
+                        ),
                 ),
-              ],
+              ),
             ),
           ],
         ),

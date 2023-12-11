@@ -141,11 +141,11 @@ class _Design0State extends State<Design0> {
               height: MediaQuery.of(context).size.height * 0.55,
               width: MediaQuery.of(context).size.width * 0.6),
       Container(
-        width: widget.widgetSize * 3.5,
-        padding: EdgeInsets.all(widget.widgetSize * 0.1),
+        width: widget.widgetSize * 3.8,
+        padding: EdgeInsets.all(widget.widgetSize * 0.15),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(widget.widgetSize * 0.075),
+          borderRadius: BorderRadius.circular(widget.widgetSize * 0.14),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,11 +155,11 @@ class _Design0State extends State<Design0> {
                 Hero(
                   tag: youtubeInfo.first.snippet.thumbnails.maxres.url,
                   child: SizedBox(
-                    width: widget.widgetSize * 3.3,
+                    width: widget.widgetSize * 4,
                     height: widget.widgetSize * 2,
                     child: ClipRRect(
                       borderRadius:
-                          BorderRadius.circular(widget.widgetSize * 0.065),
+                          BorderRadius.circular(widget.widgetSize * 0.13),
                       child: CachedNetworkImage(
                         alignment: Alignment.center,
                         imageUrl:
