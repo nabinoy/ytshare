@@ -348,10 +348,17 @@ class _TabContentState extends State<TabContent> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                'assets/images/design1.png',
-                                fit: BoxFit.cover,
-                              ),
+                              child:
+                                  (Theme.of(context).colorScheme.brightness ==
+                                          Brightness.light)
+                                      ? Image.asset(
+                                          'assets/images/design0-light.jpg',
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          'assets/images/design0-dark.jpg',
+                                          fit: BoxFit.cover,
+                                        ),
                             ),
                           ),
                         ),
