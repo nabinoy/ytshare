@@ -80,9 +80,58 @@ class _HomeState extends State<Home> {
           const Padding(padding: EdgeInsets.all(8))
         ],
       ),
-      drawer: const Drawer(
-        child: Column(
-          children: [],
+      drawer: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Y',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      Global.appName,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        height: 1.2,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Text(
+                  'Developed by Nabinoy Baroi',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
