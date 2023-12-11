@@ -159,7 +159,7 @@ class _HomeState extends State<Home> {
                     height: 14,
                   ),
                   const Text(
-                    "Share YouTube video links with a personalized UI on your favorite social media platforms.",
+                    "Share YouTube video links on your favorite social media platforms with personalized stickers.",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   )
                 ],
