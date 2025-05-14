@@ -42,7 +42,7 @@ class _EditPageState extends State<EditPage> {
       children: [
         Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             leading: IconButton(
               onPressed: () {
                 HapticFeedback.mediumImpact();
@@ -76,7 +76,16 @@ class _EditPageState extends State<EditPage> {
 
                     final file = await File('${tempDir.path}/youtube-share.png')
                         .writeAsBytes(bytes!);
-                    await Share.shareFiles([file.path], text: 'Watch now!');
+final params = ShareParams(
+  text: 'Great picture',
+  files: [XFile(file.path)], 
+);
+
+final result = await SharePlus.instance.share(params);
+
+if (result.status == ShareResultStatus.success) {
+    print('Thank you for sharing the picture!');
+}
                     setState(() {
                       isLoading = false;
                     });

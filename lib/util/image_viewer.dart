@@ -15,13 +15,13 @@ class ImageViewer extends StatelessWidget {
           Navigator.pop(context);
         },
         child: Container(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           child: Hero(
             tag: imagePath,
             child: PhotoView(
               imageProvider: NetworkImage(imagePath),
               backgroundDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background),
+                  color: Theme.of(context).colorScheme.surface),
               initialScale: PhotoViewComputedScale.contained,
             ),
           ),

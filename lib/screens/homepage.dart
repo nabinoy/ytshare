@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_snackbar_content/flutter_snackbar_content.dart';
+// import 'package:flutter_snackbar_content/flutter_snackbar_content.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -57,9 +57,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         centerTitle: true,
         elevation: 0,
         title: Text(
@@ -236,10 +236,11 @@ class _HomeState extends State<Home> {
                             elevation: 0,
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
-                            content: FlutterSnackbarContent(
-                              message: 'Please enter a valid YouTube URL!',
-                              contentType: ContentType.failure,
-                            ),
+                            content: Text("Please enter valid url")
+                            // content: FlutterSnackbarContent(
+                            //   message: 'Please enter a valid YouTube URL!',
+                            //   contentType: ContentType.failure,
+                            // ),
                           );
 
                           ScaffoldMessenger.of(context)

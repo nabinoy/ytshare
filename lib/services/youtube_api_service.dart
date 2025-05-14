@@ -8,7 +8,6 @@ Future<List<YouTubeModel>> getVideoInfo(String videoId) async {
   final uri = Uri.parse(
       'https://www.googleapis.com/youtube/v3/videos?id=$videoId&key=${Config.youtubeAPI}&part=snippet,contentDetails,statistics');
   var response = await http.get(uri);
-
   if (response.statusCode == 200) {
       var data = json.decode(response.body);
       data = data['items'];

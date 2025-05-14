@@ -6,7 +6,7 @@ ThemeData lightMode = ThemeData(
   fontFamily: Global.fontRegular,
   useMaterial3: true,
   colorScheme: ColorScheme.light(
-      background: Colors.grey.shade300,
+      surface: Colors.grey.shade300,
       primary: Colors.grey.shade200,
       secondary: Colors.grey.shade100),
 );
@@ -16,7 +16,7 @@ ThemeData darkMode = ThemeData(
   fontFamily: Global.fontRegular,
   useMaterial3: true,
   colorScheme: ColorScheme.dark(
-      background: Colors.grey.shade900,
+      surface: Colors.grey.shade900,
       primary: Colors.grey.shade800,
       secondary: Colors.grey.shade700),
 );

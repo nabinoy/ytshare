@@ -1,0 +1,2 @@
+/Users/nabinoybaroi/Developer/Apps/ytshare/android/app/.cxx/Debug/2u6f6q4h/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/nabinoybaroi/Developer/Apps/ytshare/android/app/.cxx/Debug/2u6f6q4h/arm64-v8a/CMakeFiles/rebuild_cache.dir

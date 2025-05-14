@@ -85,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
       nextScreen: const Home(),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.fade,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 }
