@@ -233,14 +233,8 @@ class _HomeState extends State<Home> {
                             isLoading = false;
                           });
                           const snackBar = SnackBar(
-                            elevation: 0,
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.transparent,
-                            content: Text("Please enter valid url")
-                            // content: FlutterSnackbarContent(
-                            //   message: 'Please enter a valid YouTube URL!',
-                            //   contentType: ContentType.failure,
-                            // ),
+                             elevation: 0,
+                            content: Text("Please enter valid YouTube URL")
                           );
 
                           ScaffoldMessenger.of(context)

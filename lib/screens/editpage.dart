@@ -76,16 +76,14 @@ class _EditPageState extends State<EditPage> {
 
                     final file = await File('${tempDir.path}/youtube-share.png')
                         .writeAsBytes(bytes!);
-final params = ShareParams(
-  text: 'Great picture',
-  files: [XFile(file.path)], 
-);
+                    final params = ShareParams(
+                      text: 'Great picture',
+                      files: [XFile(file.path)],
+                    );
 
-final result = await SharePlus.instance.share(params);
+                    final result = await SharePlus.instance.share(params);
 
-if (result.status == ShareResultStatus.success) {
-    print('Thank you for sharing the picture!');
-}
+                    if (result.status == ShareResultStatus.success) {}
                     setState(() {
                       isLoading = false;
                     });
@@ -195,9 +193,8 @@ if (result.status == ShareResultStatus.success) {
                             Theme.of(context).textTheme.bodyLarge?.color,
                         indicator: BoxDecoration(
                           borderRadius: BorderRadius.circular(80.0),
-                          color: Colors.grey.withOpacity(0.3),
+                          color: Colors.grey.withValues(alpha: (0.5 * 255)),
                         ),
-                        splashFactory: NoSplash.splashFactory,
                         tabs: const [
                           Tab(text: 'Design'),
                           Tab(text: 'Tweaks'),
@@ -249,7 +246,7 @@ if (result.status == ShareResultStatus.success) {
         ),
         if (isLoading)
           Container(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha: (0.5 * 255)),
             child: const Center(
               child: CircularProgressIndicator(
                 color: Colors.white,

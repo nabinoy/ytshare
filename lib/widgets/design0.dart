@@ -144,7 +144,7 @@ class _Design0State extends State<Design0> {
         width: widget.widgetSize * 3.8,
         padding: EdgeInsets.all(widget.widgetSize * 0.15),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: (0.4 * 255)),
           borderRadius: BorderRadius.circular(widget.widgetSize * 0.14),
         ),
         child: Column(
@@ -182,7 +182,7 @@ class _Design0State extends State<Design0> {
                         vertical: widget.widgetSize * 0.02,
                         horizontal: widget.widgetSize * 0.06),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: (0.6 * 255)),
                       borderRadius:
                           BorderRadius.circular(widget.widgetSize * 0.065),
                     ),

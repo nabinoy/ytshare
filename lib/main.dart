@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_sharing_intent/flutter_sharing_intent.dart';
+import 'package:flutter_sharing_intent/model/sharing_file.dart';
 import 'package:ytshare/constants/global.dart';
 import 'package:ytshare/router.dart';
 import 'package:ytshare/services/shared_service.dart';
 import 'package:ytshare/splash/splash_screen.dart';
 import 'package:ytshare/theme/theme.dart';
 import 'package:ytshare/theme/theme_provider.dart';
+
+import 'package:ytshare/screens/settings.dart';
+import 'dart:async';
 
 void main() {
   //runApp(const YTShare());
@@ -25,6 +30,37 @@ class YTShare extends StatefulWidget {
 
 class _YTShareState extends State<YTShare> {
   int themeOrder = 0;
+  late StreamSubscription _intentDataStreamSubscription;
+  List<SharedFile>? list;
+
+  @override
+  void initState() {
+    super.initState();
+    // For sharing images coming from outside the app while the app is in the memory
+    _intentDataStreamSubscription = FlutterSharingIntent.instance.getMediaStream()
+        .listen((List<SharedFile> value) {
+      setState(() {
+        list = value;
+        print("LIST: $list");
+      });
+    }, onError: (err) {
+      print("getIntentDataStream error: $err");
+    });
+
+    // For sharing images coming from outside the app while the app is closed
+    FlutterSharingIntent.instance.getInitialSharing().then((List<SharedFile> value) {
+      setState(() {
+        list = value;
+        print("LIST: $list");
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _intentDataStreamSubscription.cancel();
+    super.dispose();
+  }
 
   Future<void> futureCall() async {
     themeOrder = await SharedService.getThemeOrder();
@@ -68,7 +104,10 @@ class _YTShareState extends State<YTShare> {
             theme: lightMode,
             darkTheme: darkMode,
             onGenerateRoute: (settings) => generateRoute(settings),
-            home: const SplashScreen(),
+            // home: const SplashScreen(),
+            home: (list != null && list!.isNotEmpty)
+          ? const Settings()
+          : const SplashScreen()
           );
         } else {
           return MaterialApp(
@@ -81,7 +120,10 @@ class _YTShareState extends State<YTShare> {
             //   useMaterial3: true,
             // ),
             onGenerateRoute: (settings) => generateRoute(settings),
-            home: const SplashScreen(),
+            //home: const Settings(),
+            home: (list != null && list!.isNotEmpty)
+          ? const Settings()
+          : const SplashScreen()
           );
         }
       } else {
